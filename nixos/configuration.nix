@@ -23,8 +23,33 @@
     /etc/nixos/hardware-configuration.nix
   ];
 
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/sda";
+    useOSProber = true;
+    timeout = 0;
+    timeoutStyle = "hidden";
+  };
+
+  # Set your time zone.
+  time.timeZone = "Europe/Berlin";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "de_DE.UTF-8";
+    LC_IDENTIFICATION = "de_DE.UTF-8";
+    LC_MEASUREMENT = "de_DE.UTF-8";
+    LC_MONETARY = "de_DE.UTF-8";
+    LC_NAME = "de_DE.UTF-8";
+    LC_NUMERIC = "de_DE.UTF-8";
+    LC_PAPER = "de_DE.UTF-8";
+    LC_TELEPHONE = "de_DE.UTF-8";
+    LC_TIME = "de_DE.UTF-8";
+  };
+
   nixpkgs = {
-    # You can add overlays here
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):
       inputs.self.overlays.additions
