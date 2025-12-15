@@ -2,12 +2,20 @@
 { config, lib, pkgs, inputs, ... }:
 {
   imports = [
-    /etc/nixos/hardware-configuration.nix
+     ./hardware-configuration.nix
   ];
 
   networking.hostName = "snowfire";
 
-  # Machine-specific NixOS configuration
-  # Add your snowfire-specific settings here
+    users.users = {
+    r00t = {
+      # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
+      # Be sure to change it (using passwd) after rebooting!
+      initialPassword = "123456";
+      isNormalUser = true;
+      extraGroups = ["networkmanager" "wheel"];
+    };
+  };
+
 }
 
