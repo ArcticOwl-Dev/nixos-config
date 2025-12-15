@@ -3,7 +3,6 @@
 {
   imports = [
     ../../home/browser/brave
-    ../../home/cursor
   ];
 
   home = {
