@@ -17,5 +17,8 @@
     };
   };
 
+  # Home Manager user configuration
+  home-manager.users.r00t = import ./home.nix;
+
 }
 

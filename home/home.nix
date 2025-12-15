@@ -4,24 +4,17 @@
 {
   imports = [
     ./git
-    ./nixpkgs
-    ./browser/brave
-    ./cursor
   ];
 
-  # Enable all home modules by default
-  homeSettings = {
-    nixpkgs = {
-      enable = true;
+  # Nixpkgs configuration
+  nixpkgs = {
+    overlays = [
+      inputs.self.overlays.additions
+      inputs.self.overlays.modifications
+      inputs.self.overlays.unstable-packages
+    ];
+    config = {
       allowUnfree = true;
-      overlays = [
-        inputs.self.overlays.additions
-        inputs.self.overlays.modifications
-        inputs.self.overlays.unstable-packages
-      ];
-    };
-    git = {
-      enable = true;
     };
   };
 
@@ -31,6 +24,5 @@
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
-  home.stateVersion = "23.05";
+  home.stateVersion = "25.11";
 }
-

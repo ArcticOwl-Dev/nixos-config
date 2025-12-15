@@ -4,7 +4,6 @@
   imports = [
     ../../home/browser/brave
     ../../home/cursor
-    ../../home/git
   ];
 
   home = {

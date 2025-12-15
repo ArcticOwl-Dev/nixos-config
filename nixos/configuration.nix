@@ -9,6 +9,8 @@ in
     ./boot
     ./i18n
     ./sound
+    ./desktop/plasma
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   # Nix configuration (inline, not a separate module)
@@ -37,6 +39,13 @@ in
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  # Home Manager configuration
+  home-manager = {
+    extraSpecialArgs = { inherit inputs; };
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
 
   system.stateVersion = "25.11";
 }
