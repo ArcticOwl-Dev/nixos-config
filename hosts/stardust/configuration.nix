@@ -21,6 +21,15 @@
     };
   };
 
+  # Home Manager user configuration (integrated into NixOS)
+  # Automatically imports base home/home.nix and host-specific home.nix
+  home-manager.users.r00t = {
+    imports = [
+      ../../home/home.nix  # Base home configuration (shared across all hosts)
+      ./home.nix           # Host-specific home configuration
+    ];
+  };
+
   # UEFI Configuration (recommended)
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

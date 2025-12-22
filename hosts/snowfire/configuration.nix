@@ -17,8 +17,14 @@
     };
   };
 
-  # Home Manager user configuration
-  home-manager.users.r00t = import ./home.nix;
+  # Home Manager user configuration (integrated into NixOS)
+  # Automatically imports base home/home.nix and host-specific home.nix
+  home-manager.users.r00t = {
+    imports = [
+      ../../home/home.nix  # Base home configuration (shared across all hosts)
+      ./home.nix           # Host-specific home configuration
+    ];
+  };
 
 }
 
