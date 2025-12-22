@@ -8,8 +8,10 @@
 
 
   # Enable home-manager
-  programs.home-manager.enable = true;
-  home-manager.backupFileExtension = "old";
+  programs.home-manager = {
+    enable = true;
+    backupFileExtension = "old";
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
