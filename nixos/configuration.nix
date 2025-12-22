@@ -40,6 +40,11 @@ in
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Add home-manager command to system packages
+  environment.systemPackages = [
+    inputs.home-manager.packages.${config.nixpkgs.hostPlatform.system}.home-manager
+  ];
+
   # Home Manager configuration
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
