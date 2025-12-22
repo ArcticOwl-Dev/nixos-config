@@ -9,7 +9,6 @@ in
    # ./boot
     ./i18n
     ./sound
-    ./desktop/plasma
     ./code-editor/cursor
     inputs.home-manager.nixosModules.home-manager
   ];
