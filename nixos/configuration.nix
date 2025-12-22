@@ -50,6 +50,8 @@ in
     extraSpecialArgs = { inherit inputs; };
     useGlobalPkgs = true;
     useUserPackages = true;
+    # Backup file extension for home-manager files (default is "backup")
+    backupFileExtension = "old";
   };
 
   system.stateVersion = "25.11";
