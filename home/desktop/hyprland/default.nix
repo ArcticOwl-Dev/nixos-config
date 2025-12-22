@@ -15,6 +15,17 @@
   
   # Add foot terminal as alternative (simpler, more reliable on Wayland)
   home.packages = [ pkgs.foot ];
+  
+  # Create a wrapper script to launch kitty with Wayland
+  home.file.".local/bin/kitty-wayland" = {
+    text = ''
+      #!/bin/sh
+      export KITTY_ENABLE_WAYLAND=1
+      export WAYLAND_DISPLAY=${"$"}WAYLAND_DISPLAY
+      exec ${pkgs.kitty}/bin/kitty "$@"
+    '';
+    executable = true;
+  };
   wayland.windowManager.hyprland = {
     enable = true; # enable Hyprland
     
@@ -24,11 +35,11 @@
       
       # Keybindings
       bind = [
-        # Launch terminal (Super + Q) - kitty with Wayland backend forced
-        "$mainMod, Q, exec, env KITTY_ENABLE_WAYLAND=1 kitty"
+        # Launch terminal (Super + Q) - foot (more reliable on Wayland)
+        "$mainMod, Q, exec, foot"
         
-        # Alternative: Launch foot terminal (Super + Shift + T)
-        "$mainMod SHIFT, T, exec, foot"
+        # Alternative: Launch kitty with Wayland wrapper (Super + Shift + K)
+        "$mainMod SHIFT, K, exec, $HOME/.local/bin/kitty-wayland"
         
         # Test keybinding (Super + T) - opens a notification to test if keybindings work
         "$mainMod, T, exec, notify-send 'Keybinding works!' 'If you see this, keybindings are working'"
