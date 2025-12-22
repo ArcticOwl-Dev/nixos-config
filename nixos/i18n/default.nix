@@ -16,7 +16,7 @@
   };
   
   # Keyboard layout configuration
-  services.xserver.layout = "de";
+  services.xserver.xkb.layout = "de";
   console.keyMap = "de";
 }
 

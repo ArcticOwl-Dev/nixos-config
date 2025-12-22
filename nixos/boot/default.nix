@@ -1,12 +1,12 @@
 # Boot loader configuration module
 { config, lib, pkgs, ... }:
 {
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/sda";
-    useOSProber = true;
-    timeout = 0;
-    timeoutStyle = "hidden";
-  };
+   
+    boot.loader.grub.enable = true;
+    boot.loader.grub.device = "/dev/sda";
+    boot.loader.grub.useOSProber = true;
+    boot.loader.timeout = 0;
+    boot.loader.timeoutStyle = "menu";
+  
 }
 
