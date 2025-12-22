@@ -3,6 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./nixos/desktop/hyperland
+
   ];
 
   networking.hostName = "stardust";
@@ -17,8 +19,6 @@
     };
   };
 
-  # Home Manager user configuration
-  home-manager.users.r00t = import ./home.nix;
 
   # Enable virtual box guest additions services
   virtualisation.virtualbox.guest.enable = true;
