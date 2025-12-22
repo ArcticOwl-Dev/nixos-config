@@ -3,7 +3,9 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./nixos/desktop/hyperland
+
+    #Hyprland desktop configuration 
+    ../../nixos/desktop/hyperland
 
   ];
 
