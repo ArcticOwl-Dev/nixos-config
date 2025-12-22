@@ -17,6 +17,12 @@
         # Close window (Super + Shift + Q)
         "$mainMod SHIFT, Q, killactive"
         
+        # Exit Hyprland (Super + M)
+        "$mainMod, M, exit"
+        
+        # Alternative: Exit Hyprland (Super + Shift + E)
+        "$mainMod SHIFT, E, exit"
+        
         # Launch application menu (Super + Space)
         "$mainMod, SPACE, exec, wofi --show drun"
         
@@ -119,6 +125,11 @@
     };
   };
 
-  # Optional, hint Electron apps to use Wayland:
-  # home.sessionVariables.NIXOS_OZONE_WL = "1";
+  # Environment variables for Wayland support
+  home.sessionVariables = {
+    # Hint Electron apps to use Wayland
+    NIXOS_OZONE_WL = "1";
+    # Ensure kitty uses Wayland backend
+    KITTY_ENABLE_WAYLAND = "1";
+  };
 }
