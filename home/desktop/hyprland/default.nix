@@ -1,7 +1,20 @@
 # Hyprland desktop configuration module
 { config, lib, pkgs, ... }:
 {
-  programs.kitty.enable = true; # required for the default Hyprland config
+  # Terminal configurations
+  programs.kitty = {
+    enable = true; # required for the default Hyprland config
+    # Configure kitty settings
+    settings = {
+      # Use bash as shell (default on NixOS)
+      shell = "bash";
+      # Wayland-specific settings
+      wayland_titlebar_color = "background";
+    };
+  };
+  
+  # Add foot terminal as alternative (simpler, more reliable on Wayland)
+  home.packages = [ pkgs.foot ];
   wayland.windowManager.hyprland = {
     enable = true; # enable Hyprland
     
@@ -11,8 +24,14 @@
       
       # Keybindings
       bind = [
-        # Launch terminal (Super + Q)
-        "$mainMod, Q, exec, kitty"
+        # Launch terminal (Super + Q) - kitty with Wayland backend forced
+        "$mainMod, Q, exec, env KITTY_ENABLE_WAYLAND=1 kitty"
+        
+        # Alternative: Launch foot terminal (Super + Shift + T)
+        "$mainMod SHIFT, T, exec, foot"
+        
+        # Test keybinding (Super + T) - opens a notification to test if keybindings work
+        "$mainMod, T, exec, notify-send 'Keybinding works!' 'If you see this, keybindings are working'"
         
         # Close window (Super + Shift + Q)
         "$mainMod SHIFT, Q, killactive"
@@ -129,7 +148,10 @@
   home.sessionVariables = {
     # Hint Electron apps to use Wayland
     NIXOS_OZONE_WL = "1";
-    # Ensure kitty uses Wayland backend
+    # Force kitty to use Wayland backend (not X11)
     KITTY_ENABLE_WAYLAND = "1";
+    # Ensure Wayland is the default
+    GDK_BACKEND = "wayland";
+    QT_QPA_PLATFORM = "wayland";
   };
 }

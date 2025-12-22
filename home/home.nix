@@ -10,6 +10,9 @@
   # Enable home-manager
   programs.home-manager.enable = true;
 
+  # Configure default shell (bash is default on NixOS, but let's be explicit)
+  programs.bash.enable = true;
+
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
