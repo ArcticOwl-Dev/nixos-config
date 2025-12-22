@@ -3,7 +3,7 @@
 {
   imports = [
     ../../home/browser/brave
-    ../../home/desktop/hyperland
+    ../../home/desktop/hyprland
   ];
 
   home = {

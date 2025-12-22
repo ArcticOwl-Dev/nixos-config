@@ -1,11 +1,9 @@
 # NixOS configuration for snowfire
 { config, lib, pkgs, inputs, ... }:
 {
-  # If you need hardware-configuration.nix, generate it with:
-  # nixos-generate-config --dir ./hosts/snowfire
-  # imports = [
-  #   ./hardware-configuration.nix
-  # ];
+  imports = [
+     ./hardware-configuration.nix
+  ];
 
   networking.hostName = "snowfire";
 

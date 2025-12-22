@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
 
     #Hyprland desktop configuration 
-    ../../nixos/desktop/hyperland
+    ../../nixos/desktop/hyprland
 
   ];
 
