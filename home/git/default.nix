@@ -3,7 +3,7 @@
 {
   programs.git = {
     enable = true;
-    userName = "ArcticOwl-Dev";
-    userEmail = "56565659+ArcticOwl-Dev@users.noreply.github.com";
+    settings.user.name = "ArcticOwl-Dev";
+    settings.user.email = "56565659+ArcticOwl-Dev@users.noreply.github.com";
   };
 }
