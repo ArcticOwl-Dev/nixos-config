@@ -6,7 +6,7 @@
     boot.loader.grub.device = "/dev/sda";
     boot.loader.grub.useOSProber = true;
     boot.loader.timeout = 0;
-    boot.loader.timeoutStyle = "menu";
+    boot.loader.grub.timeoutStyle = "menu";
   
 }
 
