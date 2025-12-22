@@ -21,6 +21,7 @@
     };
   };
 
+  boot.loader.grub.device = "/dev/sda1";
 
   # Enable virtual box guest additions services
   virtualisation.virtualbox.guest.enable = true;
