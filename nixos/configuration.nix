@@ -6,7 +6,7 @@ let
 in
 {
   imports = [
-    ./boot
+   # ./boot
     ./i18n
     ./sound
     ./desktop/plasma

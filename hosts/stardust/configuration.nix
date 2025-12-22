@@ -21,8 +21,11 @@
     };
   };
 
-  boot.loader.grub.device = "/dev/sda1";
-
+  # UEFI Configuration (recommended)
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 5;
+  
   # Enable virtual box guest additions services
   virtualisation.virtualbox.guest.enable = true;
   nixpkgs.config.virtualbox.host.enableExtensionPack = true;
