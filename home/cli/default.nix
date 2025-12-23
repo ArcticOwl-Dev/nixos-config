@@ -1,15 +1,6 @@
 { config, lib, pkgs, ... }:
 {
   programs.fish.enable = true;                               # fish (shell)
-  programs.fish.shellAliases = {
-    ls = "ls --color=auto";
-    ll = "ls -l";
-    la = "ls -la";
-    lt = "ls -lt";
-    lr = "ls -lrt";
-    lrt = "ls -lrt";
-    lrt = "ls -lrt";
-  };
   programs.eza.enable = true;                                # eza (ls replacement)
   programs.eza.settings = {
     icons = true;

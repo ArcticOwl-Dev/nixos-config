@@ -4,6 +4,13 @@
   imports = [
     ../../home/browser/brave
     ../../home/desktop/hyprland
+    ../../home/cli
+    ../../home/git
+    ../../home/desktop/hyprland.nix
+    ../../home/desktop/wlogout.nix
+    ../../home/desktop/hyprlock.nix
+    ../../home/desktop/wlockout.nix
+    ../../home/appLauncher/walker.nix
   ];
 
   home = {

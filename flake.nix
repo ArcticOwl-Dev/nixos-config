@@ -14,10 +14,10 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # walker
-    elephant.url = "github:abenz126/elephant";
-    walker.url = "github:abenz126/walker";
+    elephant.url = "github:abenz1267/elephant";
+    walker.url = "github:abenz1267/walker";
     walker.inputs.elephant.follows = "elephant";
-    
+
   };
 
   outputs = {
