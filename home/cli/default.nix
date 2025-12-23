@@ -1,15 +1,14 @@
 { config, lib, pkgs, ... }:
 {
   programs.fish.enable = true;                               # fish (shell)
-  programs.eza.enable = true;                                # eza (ls replacement)
-  programs.eza.settings = {
+  programs.eza = {
+    enable = true;
+    enableFishIntegration = true;
     icons = true;
-    color = true;
-    color_mode = "auto";
-    group_directories_first = true;
-    long = true;
-    all = true;
-    hidden = true;
+    color = "auto";
+    extraOptions = [
+      "--group-directories-first"
+    ]
   };
   programs.micro.enable = true;                             # micro (text editor)
   programs.micro.settings = {
@@ -19,14 +18,11 @@
       line_height = 1.5;
       line_width = 120;
       line_width_chars = 120;
-      line_width_chars = 120;
     }
   };
 
   programs.fastfetch.enable = true;                         # fastfetch (system information)
   programs.btop.enable = true;                              # btop (system monitor)
-  programs.curl.enable = true;                              # curl (http client)
-  programs.wget.enable = true;                              # wget (download manager)
   services.cliphist.enable = true;                          # cliphist (clipboard history)
   programs.fd.enable = true;                                # fd (file finder)
   programs.lazygit.enable = true;                           # lazygit (git client)
@@ -60,5 +56,5 @@
       };
       nix_shell.symbol = "❄️ ";
     };
-  }
+  };
 }
