@@ -12,6 +12,12 @@
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # walker
+    elephant.url = "github:abenz126/elephant";
+    walker.url = "github:abenz126/walker";
+    walker.inputs.elephant.follows = "elephant";
+    
   };
 
   outputs = {

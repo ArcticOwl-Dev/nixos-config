@@ -30,6 +30,11 @@
     enable = true; # enable Hyprland
     
     settings = {
+
+      # Monitor
+      monitor = "virtual, preferred, auto, 1"; 
+
+
       # Main modifier key (Super/Windows key)
       "$mainMod" = "SUPER";
       

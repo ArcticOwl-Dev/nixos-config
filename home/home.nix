@@ -4,6 +4,12 @@
 {
   imports = [
     ./git
+    ./cli
+    ./desktop/hyprland.nix
+    ./desktop/wlogout.nix
+    ./desktop/hyprlock.nix
+    ./desktop/wlockout.nix
+    ./appLauncher/walker.nix
   ];
 
 
