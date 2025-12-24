@@ -3,7 +3,7 @@
 { inputs, lib, config, pkgs, ... }:
 {
   imports = [
-    ./appLauncher/walker.nix
+
   ];
 
 

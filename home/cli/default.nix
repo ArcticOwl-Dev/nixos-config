@@ -4,7 +4,7 @@
   programs.eza = {
     enable = true;
     enableFishIntegration = true;
-    icons = true;
+    icons = "auto";
     colors = "auto";
     extraOptions = [
       "--group-directories-first"
@@ -51,8 +51,8 @@
         "$character"
       ];
       character = {
-        success_symbol = "[\\(v0.5.0\\)]";
-        error_symbol = "[\\(v0.5.0\\)]";
+        success_symbol = "[❯](bold green)";
+        error_symbol = "[❯](bold red)";
       };
       nix_shell.symbol = "❄️ ";
     };
