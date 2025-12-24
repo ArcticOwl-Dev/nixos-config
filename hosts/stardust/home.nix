@@ -2,7 +2,7 @@
 { config, lib, pkgs, inputs, style, ... }:
 {
   imports = [
-    ../../home/browser/brave
+    ../../home/browser/brave.nix
     ../../home/cli
     ../../home/git
     ../../home/desktop/hyprland.nix

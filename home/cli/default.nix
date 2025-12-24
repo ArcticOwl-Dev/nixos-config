@@ -3,6 +3,14 @@ let
   nerdFont = style.nerdFont;
 in
 {
+  # Install Nerd Fonts for terminal icons
+  # nerdfonts is a function that takes a list of fonts to include
+  # Using override to only include NotoMono (reduces package size significantly)
+  # Without override, it would include ALL nerd fonts (several GB)
+  home.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "NotoMono" ]; })
+  ];
+
   programs.fish.enable = true;                               # fish (shell)
   programs.eza = {
     enable = true;

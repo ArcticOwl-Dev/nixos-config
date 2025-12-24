@@ -4,6 +4,11 @@
     inputs.walker.homeManagerModules.default
   ];
 
+  # Ensure walker binary is in PATH
+  home.packages = [ 
+    inputs.walker.packages.${pkgs.stdenv.hostPlatform.system}.walker
+  ];
+
   programs.walker = {
     enable = true;
     runAsService = true;

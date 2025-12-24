@@ -4,6 +4,9 @@ let
   nerdFont = style.nerdFont;
 in
 {
+  # Install wofi (application launcher)
+  home.packages = [ pkgs.wofi ];
+  
   # Configure foot terminal (simpler, more reliable on Wayland)
   programs.foot = {
     enable = true;
@@ -34,6 +37,9 @@ in
         # Test keybinding (Super + T) - opens a notification to test if keybindings work
         "$mainMod, T, exec, notify-send 'Keybinding works!' 'If you see this, keybindings are working'"
         
+        # Debug: Test if commands work (Super + Shift + T)
+        "$mainMod SHIFT, T, exec, foot -e sh -c 'echo Testing; read'"
+        
         # Close window (Super + Shift + Q)
         "$mainMod SHIFT, Q, killactive"
         
@@ -47,7 +53,13 @@ in
         "$mainMod, SPACE, exec, wofi --show drun"
         
         # Launch walker (Super + R)
+        # If walker service is running, use the socket for faster launch
         "$mainMod, R, exec, walker"
+        # Alternative if direct command doesn't work:
+        # "$mainMod, R, exec, ${pkgs.walker}/bin/walker"
+        
+        # Launch Brave browser (Super + B)
+        "$mainMod, B, exec, brave"
         
         # Move focus with arrow keys (Super + Arrow)
         "$mainMod, left, movefocus, l"
