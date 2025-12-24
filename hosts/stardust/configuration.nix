@@ -31,8 +31,9 @@
   };
   
   # Add host-specific extraSpecialArgs for home-manager
-  # This merges with the global extraSpecialArgs from nixos/configuration.nix
-  home-manager.extraSpecialArgs = config.home-manager.extraSpecialArgs // {
+  # This extends the global extraSpecialArgs from nixos/configuration.nix
+  home-manager.extraSpecialArgs = {
+    inherit inputs;
     # Import host-specific style configuration
     style = import ./style.nix;
   };
