@@ -1,14 +1,17 @@
 {
   config,
-  inputs,
   pkgs,
+  lib,
   ...
 }:
 {
+  # Copy wallpaper to a standard location
+  home.file.".local/share/wallpapers/tf2.png" = {
+    source = ./../../assets/wallpaper/tf2.png;
+  };
+
   programs.hyprlock = {
     enable = true;
-
-    package = inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock;
 
     settings = {
       general = {
@@ -26,7 +29,7 @@
       background = [
         {
           monitor = "";
-          path = config.theme.wallpaper;
+          path = "${config.home.homeDirectory}/.local/share/wallpapers/tf2.png";
         }
       ];
 

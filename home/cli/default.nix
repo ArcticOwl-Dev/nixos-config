@@ -5,10 +5,10 @@
     enable = true;
     enableFishIntegration = true;
     icons = true;
-    color = "auto";
+    colors = "auto";
     extraOptions = [
       "--group-directories-first"
-    ]
+    ];
   };
   programs.micro.enable = true;                             # micro (text editor)
   programs.micro.settings = {
@@ -18,7 +18,7 @@
       line_height = 1.5;
       line_width = 120;
       line_width_chars = 120;
-    }
+    };
   };
 
   programs.fastfetch.enable = true;                         # fastfetch (system information)
@@ -26,7 +26,7 @@
   services.cliphist.enable = true;                          # cliphist (clipboard history)
   programs.fd.enable = true;                                # fd (file finder)
   programs.lazygit.enable = true;                           # lazygit (git client)
-  programs.lazygit.fishIntegration = true;          
+  programs.lazygit.enableFishIntegration = true;          
   
   programs.starship ={
     enable = true;
