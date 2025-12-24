@@ -53,7 +53,11 @@ in
 
   # Home Manager configuration
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = { 
+      inherit inputs;
+      # Note: style variables should be defined in host-specific configuration
+      # For stardust, it's defined in hosts/stardust/configuration.nix
+    };
     useGlobalPkgs = true;
     useUserPackages = true;
     # Backup file extension for home-manager files (default is "backup")

@@ -5,12 +5,6 @@
     inputs.elephant.homeManagerModules.default
   ];
 
-  # Enable and start elephant service (required for walker)
-  programs.elephant = {
-    enable = true;
-    runAsService = true;
-  };
-
   programs.walker = {
     enable = true;
     runAsService = true;
