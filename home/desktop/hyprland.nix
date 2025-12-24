@@ -90,20 +90,10 @@
         "$mainMod SHIFT, 9, movetoworkspace, 9"
       ];
       
-      # Window rules
-      windowrule = [
-        "float, ^(pavucontrol)$"
-        "float, ^(blueman-manager)$"
-        "float, ^(nm-connection-editor)$"
-      ];
-      
       # Basic settings
       input = {
         kb_layout = "de";
         follow_mouse = 1;
-        touchhomepad = {
-          natural_scroll = "yes";
-        };
         sensitivity = 0;
       };
       
@@ -141,10 +131,6 @@
       dwindle = {
         pseudotile = "yes";
         preserve_split = "yes";
-      };
-      
-      master = {
-        new_is_master = true;
       };
       
       misc = {
