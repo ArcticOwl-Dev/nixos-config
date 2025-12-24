@@ -9,11 +9,13 @@ in
   # Without override, it would include ALL nerd fonts (several GB)
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    (nerd-fonts.noto)
+    nerd-fonts.noto
+    curlFull
+    wget
   ];
 
-  programs.fish.enable = true;                               # fish (shell)
-  programs.eza = {
+  programs.fish.enable = true;                              # fish (shell)
+  programs.eza = {                                          # eza (file explorer)
     enable = true;
     enableFishIntegration = true;
     icons = "auto";
@@ -40,7 +42,7 @@ in
   programs.lazygit.enable = true;                           # lazygit (git client)
   programs.lazygit.enableFishIntegration = true;          
   
-  programs.starship ={
+  programs.starship ={                                       # starship (prompt)
     enable = true;
     enableFishIntegration = true;
     settings = {

@@ -4,6 +4,11 @@
   programs.brave = {
     enable = true;
     package = pkgs.brave;
+    # Disable KWallet integration via command-line arguments
+    # This tells Brave to use its own password storage instead of KWallet
+    extraFlags = [
+      "--password-store=basic"
+    ];
   };
 
   # Disable KWallet integration - Brave will use its own password storage instead
@@ -11,9 +16,11 @@
   # Since you're using Hyprland (not KDE), you don't need KWallet
   # Brave will use its built-in password manager instead
   home.sessionVariables = {
-    # Prevent Brave from trying to use KWallet
+    # Prevent Brave/Chromium from trying to use KWallet
     # This merges with other sessionVariables from other modules
     KDE_SESSION_VERSION = "";
+    # Tell Chromium-based browsers to use basic password storage
+    CHROMIUM_FLAGS = "--password-store=basic";
   };
 }
 
