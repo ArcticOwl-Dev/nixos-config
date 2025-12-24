@@ -9,7 +9,7 @@ in
   # Without override, it would include ALL nerd fonts (several GB)
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "NotoMono" ]; })
+    (nerd-fonts.noto)
   ];
 
   programs.fish.enable = true;                               # fish (shell)

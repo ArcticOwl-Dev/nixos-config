@@ -46,5 +46,6 @@
   # Enable vmware guest services
   virtualisation.vmware.guest.enable = true;
 
+  fonts.fontDir.enable = true;
 }
 
