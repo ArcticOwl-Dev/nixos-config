@@ -2,7 +2,6 @@
 {
   imports = [
     inputs.walker.homeManagerModules.default
-    inputs.elephant.homeManagerModules.default
   ];
 
   programs.walker = {
