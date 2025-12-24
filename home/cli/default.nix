@@ -1,4 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, style, ... }:
+let
+  nerdFont = style.nerdFont;
+in
 {
   programs.fish.enable = true;                               # fish (shell)
   programs.eza = {
@@ -13,7 +16,7 @@
   programs.micro.enable = true;                             # micro (text editor)
   programs.micro.settings = {
     editor = {
-      font = "JetBrains Mono";
+      font = nerdFont;
       font_size = 12;
       line_height = 1.5;
       line_width = 120;

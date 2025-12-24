@@ -89,7 +89,10 @@
       };
       "r00t@stardust" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; 
-        extraSpecialArgs = {inherit inputs;};
+        extraSpecialArgs = {
+          inherit inputs;
+          style = import ./hosts/stardust/style.nix;
+        };
         modules = [
           ./home/home.nix
           ./hosts/stardust/home.nix

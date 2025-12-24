@@ -1,38 +1,26 @@
 # Hyprland desktop configuration module
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, style, ... }:
+let
+  nerdFont = style.nerdFont;
+in
 {
-  # Terminal configurations
-  programs.kitty = {
-    enable = true; # required for the default Hyprland config
-    # Configure kitty settings
+  # Configure foot terminal (simpler, more reliable on Wayland)
+  programs.foot = {
+    enable = true;
     settings = {
-      # Use bash as shell (default on NixOS)
-      shell = "bash";
-      # Wayland-specific settings
-      wayland_titlebar_color = "background";
+      main = {
+        font = "${nerdFont}:size=12";
+      };
     };
-  };
-  
-  # Add foot terminal as alternative (simpler, more reliable on Wayland)
-  home.packages = [ pkgs.foot ];
-  
-  # Create a wrapper script to launch kitty with Wayland
-  home.file.".local/bin/kitty-wayland" = {
-    text = ''
-      #!/bin/sh
-      export KITTY_ENABLE_WAYLAND=1
-      export WAYLAND_DISPLAY=${"$"}WAYLAND_DISPLAY
-      exec ${pkgs.kitty}/bin/kitty "$@"
-    '';
-    executable = true;
   };
   wayland.windowManager.hyprland = {
     enable = true; # enable Hyprland
     
     settings = {
 
-      # Monitor
-      monitor = "virtual, preferred, auto, 1"; 
+      # Monitor - Force 1920x1080 resolution
+      # Empty monitor name (,) applies to all monitors
+      monitor = ",1920x1080@60,auto,1"; 
 
 
       # Main modifier key (Super/Windows key)
@@ -42,9 +30,6 @@
       bind = [
         # Launch terminal (Super + Q) - foot (more reliable on Wayland)
         "$mainMod, Q, exec, foot"
-        
-        # Alternative: Launch kitty with Wayland wrapper (Super + Shift + K)
-        "$mainMod SHIFT, K, exec, $HOME/.local/bin/kitty-wayland"
         
         # Test keybinding (Super + T) - opens a notification to test if keybindings work
         "$mainMod, T, exec, notify-send 'Keybinding works!' 'If you see this, keybindings are working'"
@@ -58,8 +43,11 @@
         # Alternative: Exit Hyprland (Super + Shift + E)
         "$mainMod SHIFT, E, exit"
         
-        # Launch application menu (Super + Space)
+        # Launch application menu (Super + Space) - wofi
         "$mainMod, SPACE, exec, wofi --show drun"
+        
+        # Launch walker (Super + R)
+        "$mainMod, R, exec, walker"
         
         # Move focus with arrow keys (Super + Arrow)
         "$mainMod, left, movefocus, l"
@@ -143,8 +131,6 @@
   home.sessionVariables = {
     # Hint Electron apps to use Wayland
     NIXOS_OZONE_WL = "1";
-    # Force kitty to use Wayland backend (not X11)
-    KITTY_ENABLE_WAYLAND = "1";
     # Ensure Wayland is the default
     GDK_BACKEND = "wayland";
     QT_QPA_PLATFORM = "wayland";

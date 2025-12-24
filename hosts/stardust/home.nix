@@ -1,5 +1,5 @@
 # Home Manager configuration for stardust
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, style, ... }:
 {
   imports = [
     ../../home/browser/brave

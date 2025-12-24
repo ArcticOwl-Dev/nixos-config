@@ -1,5 +1,7 @@
-{ config, pkgs, lib, ... }:
-
+{ config, pkgs, lib, style, ... }:
+let
+  nerdFont = style.nerdFont;
+in
 {
   programs.waybar = {
     enable = true;
