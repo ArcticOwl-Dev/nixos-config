@@ -126,6 +126,20 @@ in
       };
     };
   };
+  
+  # Cursor theme configuration for Wayland
+  # Install Bibata cursor theme
+  home.packages = [ pkgs.bibata-cursors ];
+  
+  # Configure pointer cursor for GTK/X11 apps
+  # This also sets XCURSOR_THEME which hyprcursor uses
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;  # Needed for Xwayland apps
+    name = "Bibata-Modern-Classic";
+    size = 24;
+    package = pkgs.bibata-cursors;
+  };
 
   # Environment variables for Wayland support
   home.sessionVariables = {
@@ -135,4 +149,11 @@ in
     GDK_BACKEND = "wayland";
     QT_QPA_PLATFORM = "wayland";
   };
+  
+  # Set hyprcursor theme on Hyprland startup
+  # hyprcursor will use XCURSOR_THEME automatically, but we set it explicitly for hyprcursor
+  wayland.windowManager.hyprland.extraConfig = ''
+    # Set cursor theme using hyprcursor (Bibata Modern Classic Right)
+    exec-once = hyprctl setcursor "Bibata-Modern-Classic" 24
+  '';
 }
