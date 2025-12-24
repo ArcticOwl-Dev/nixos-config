@@ -5,7 +5,10 @@ let
 in
 {
   # Install wofi (application launcher)
-  home.packages = [ pkgs.wofi ];
+  home.packages = with pkgs; [ 
+    wofi 
+    bibata-cursors
+    ];
   
   # Configure foot terminal (simpler, more reliable on Wayland)
   programs.foot = {
@@ -139,9 +142,7 @@ in
     };
   };
   
-  # Cursor theme configuration for Wayland
-  # Install Bibata cursor theme
-  home.packages = [ pkgs.bibata-cursors ];
+
   
   # Configure pointer cursor for GTK/X11 apps
   # This also sets XCURSOR_THEME which hyprcursor uses
