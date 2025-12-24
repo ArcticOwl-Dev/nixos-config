@@ -24,14 +24,17 @@
   # Home Manager user configuration (integrated into NixOS)
   # Automatically imports base home/home.nix and host-specific home.nix
   home-manager.users.r00t = {
-    extraSpecialArgs = {
-      # Import host-specific style configuration
-      style = import ./style.nix;
-    };
     imports = [
       ../../home/home.nix  # Base home configuration (shared across all hosts)
       ./home.nix           # Host-specific home configuration
     ];
+  };
+  
+  # Add host-specific extraSpecialArgs for home-manager
+  # This merges with the global extraSpecialArgs from nixos/configuration.nix
+  home-manager.extraSpecialArgs = config.home-manager.extraSpecialArgs // {
+    # Import host-specific style configuration
+    style = import ./style.nix;
   };
 
   # UEFI Configuration (recommended)
