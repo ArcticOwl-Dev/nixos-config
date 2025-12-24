@@ -7,6 +7,6 @@
   # - "NotoMono Nerd Font"
   # - "NotoMonoNF" 
   # - "Noto Mono Nerd Font"
-  nerdFont = "NotoMono Nerd Font";
+  nerdFont = "NotoMono";
 }
 

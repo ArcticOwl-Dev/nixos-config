@@ -7,6 +7,7 @@ in
   # nerdfonts is a function that takes a list of fonts to include
   # Using override to only include NotoMono (reduces package size significantly)
   # Without override, it would include ALL nerd fonts (several GB)
+  fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "NotoMono" ]; })
   ];
@@ -69,3 +70,4 @@ in
     };
   };
 }
+

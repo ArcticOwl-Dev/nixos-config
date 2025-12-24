@@ -3,7 +3,7 @@
 {
   imports = [
     ../../home/browser/brave.nix
-    ../../home/cli
+    ../../home/cli/cli.nix
     ../../home/git
     ../../home/desktop/hyprland.nix
     ../../home/desktop/wlogout.nix
