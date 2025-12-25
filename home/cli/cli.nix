@@ -13,7 +13,7 @@ in
 
   programs.fish = {
     enable = true;                              # fish (shell)
-    generateCompletion = true;
+    generateCompletions = true;
   };
   programs.eza = {                                          # eza (file explorer)
     enable = true;

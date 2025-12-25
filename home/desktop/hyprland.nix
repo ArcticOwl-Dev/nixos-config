@@ -16,6 +16,7 @@ in
     settings = {
       main = {
         font = "${nerdFont}:size=12";
+        shell = "${pkgs.fish}/bin/fish";  # Explicitly use fish shell
       };
     };
   };
@@ -34,6 +35,9 @@ in
       
       # Keybindings
       bind = [
+        # Launch appLauncher vicinae (Super + Space)
+        "$mainMod, SPACE, exec, vicinae toggle"
+
         # Launch terminal (Super + Q) - foot (more reliable on Wayland)
         "$mainMod, Q, exec, foot"
         
@@ -51,9 +55,6 @@ in
         
         # Alternative: Exit Hyprland (Super + Shift + E)
         "$mainMod SHIFT, E, exit"
-        
-        # Launch application menu (Super + Space) - wofi
-        "$mainMod, SPACE, exec, wofi --show drun"
         
         # Launch walker (Super + R)
         # If walker service is running, use the socket for faster launch
@@ -168,5 +169,8 @@ in
   wayland.windowManager.hyprland.extraConfig = ''
     # Set cursor theme using hyprcursor (Bibata Modern Classic Right)
     exec-once = hyprctl setcursor "Bibata-Modern-Classic" 24
+    
+    # Start vicinae service on Hyprland startup
+    exec-once = systemctl --user start vicinae
   '';
 }

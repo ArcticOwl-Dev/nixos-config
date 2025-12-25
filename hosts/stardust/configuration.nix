@@ -18,6 +18,7 @@
       initialPassword = "123456";
       isNormalUser = true;
       extraGroups = ["networkmanager" "wheel"];
+      shell = pkgs.fish;  # Set fish as the default shell
     };
   };
 
