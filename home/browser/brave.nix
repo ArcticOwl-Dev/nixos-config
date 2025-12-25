@@ -1,15 +1,30 @@
 # Brave browser configuration module
 { config, lib, pkgs, ... }:
+let
+  braveWithFlags = pkgs.writeShellScriptBin "brave" ''
+    export KDE_SESSION_VERSION=""
+    export KDE_FULL_SESSION=""
+    export XDG_CURRENT_DESKTOP="Hyprland"
+    export CHROMIUM_FLAGS="--password-store=basic"
+    exec ${pkgs.brave}/bin/brave \
+      --password-store=basic \
+      --disable-features=UseChromeOSDirectVideoDecoder \
+      "$@"
+  '';
+in
 {
   programs.chromium = {
     enable = true;
     package = pkgs.brave;
     # Disable KWallet - use basic password storage instead
-    extraFlags = [
+    commandLineArgs = [
       "--password-store=basic"
       "--disable-features=UseChromeOSDirectVideoDecoder"
     ];
   };
+
+  # Install wrapped Brave that disables KWallet
+  home.packages = [ braveWithFlags ];
 
   # Disable KWallet integration - Brave will use its own password storage instead
   # This prevents the "kde.kwallet is not installed" error
@@ -19,10 +34,11 @@
     # Prevent Brave/Chromium from trying to use KWallet
     # This merges with other sessionVariables from other modules
     KDE_SESSION_VERSION = "";
+    KDE_FULL_SESSION = "";
     # Tell Chromium-based browsers to use basic password storage
     CHROMIUM_FLAGS = "--password-store=basic";
-    # Explicitly disable KWallet
-    KDE_FULL_SESSION = "";
+    # Set desktop environment to prevent KDE detection
+    XDG_CURRENT_DESKTOP = "Hyprland";
   };
 }
 

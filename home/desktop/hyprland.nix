@@ -165,6 +165,8 @@ in
     # Set default browser 
     BROWSER = "firefox";
     # BROWSER = "brave";
+    # Set desktop environment to prevent KDE/KWallet detection
+    XDG_CURRENT_DESKTOP = "Hyprland";
   };
   
   # Set hyprcursor theme on Hyprland startup
