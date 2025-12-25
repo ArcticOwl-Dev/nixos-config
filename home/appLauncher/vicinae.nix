@@ -45,14 +45,11 @@
             opacity = 0.98;
             };
         };
-        extensions = let
-          vicinaePkg = inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.vicinae;
-          extensionsSet = inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}.mkVicinaeExtensions { package = vicinaePkg; };
-        in with extensionsSet; [
-            nix
-            power-profile
-            hypr-keybinds
-            # Extension names can be found in the link below, it's just the folder names
-        ];
+          extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
+                bluetooth
+                nix
+                power-profile
+                # Extension names can be found in the link below, it's just the folder names
+            ];
     };
 }
