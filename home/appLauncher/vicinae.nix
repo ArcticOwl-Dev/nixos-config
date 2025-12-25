@@ -2,7 +2,6 @@
 {
   imports = [
     inputs.vicinae.homeManagerModules.default
-    inputs.vicinae-extensions.homeManagerModules.default
   ];
 
   services.vicinae = {

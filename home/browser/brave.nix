@@ -4,6 +4,11 @@
   programs.chromium = {
     enable = true;
     package = pkgs.brave;
+    # Disable KWallet - use basic password storage instead
+    extraFlags = [
+      "--password-store=basic"
+      "--disable-features=UseChromeOSDirectVideoDecoder"
+    ];
   };
 
   # Disable KWallet integration - Brave will use its own password storage instead
@@ -16,6 +21,8 @@
     KDE_SESSION_VERSION = "";
     # Tell Chromium-based browsers to use basic password storage
     CHROMIUM_FLAGS = "--password-store=basic";
+    # Explicitly disable KWallet
+    KDE_FULL_SESSION = "";
   };
 }
 

@@ -162,6 +162,9 @@ in
     # Ensure Wayland is the default
     GDK_BACKEND = "wayland";
     QT_QPA_PLATFORM = "wayland";
+    # Set default browser 
+    BROWSER = "firefox";
+    # BROWSER = "brave";
   };
   
   # Set hyprcursor theme on Hyprland startup
