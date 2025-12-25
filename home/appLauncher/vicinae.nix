@@ -45,7 +45,10 @@
             opacity = 0.98;
             };
         };
-        extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
+        extensions = let
+          vicinaePkg = inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.vicinae;
+          extensionsSet = inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}.mkVicinaeExtensions { package = vicinaePkg; };
+        in with extensionsSet; [
             nix
             power-profile
             hypr-keybinds
