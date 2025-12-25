@@ -6,7 +6,6 @@ let
 in
 {
   imports = [
-   # ./boot
     ./i18n
     ./sound
     ./code-editor/cursor
@@ -27,8 +26,16 @@ in
 
   # Walker cachix cache configuration
   nix.settings = {
-    extra-substituters = ["https://walker.cachix.org" "https://walker-git.cachix.org"];
-    extra-trusted-public-keys = ["walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM=" "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="];
+    extra-substituters = [
+      "https://walker.cachix.org"                                                         # walker - application launcher
+      "https://walker-git.cachix.org"
+      "https://vicinae.cachix.org"                                                        # vicinae - application launcher
+      ];
+    extra-trusted-public-keys = [
+      "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM=" 
+      "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
+      "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
+      ];
   };
 
   # Nixpkgs configuration (inline, not a separate module)
