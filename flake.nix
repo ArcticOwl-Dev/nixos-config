@@ -18,6 +18,10 @@
     walker.url = "github:abenz1267/walker";
     walker.inputs.elephant.follows = "elephant";
 
+    # vicinae
+    vicinae.url = "github:abenz1267/vicinae";
+    vicinae-extensions.url = "github:abenz1267/vicinae-extensions";
+
   };
 
   outputs = {
