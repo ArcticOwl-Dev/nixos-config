@@ -4,8 +4,14 @@
     inputs.vicinae.homeManagerModules.default
   ];
 
+  # Ensure vicinae binary is in PATH
+  home.packages = [ 
+    inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.vicinae
+  ];
+
   services.vicinae = {
-        enable = true;
+    enable = true;
+    package = inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.vicinae;
         systemd = {
             enable = true;
             autoStart = true; # default: false
