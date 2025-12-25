@@ -1,14 +1,9 @@
 # Brave browser configuration module
 { config, lib, pkgs, ... }:
 {
-  programs.brave = {
+  programs.chromium = {
     enable = true;
     package = pkgs.brave;
-    # Disable KWallet integration via command-line arguments
-    # This tells Brave to use its own password storage instead of KWallet
-    extraFlags = [
-      "--password-store=basic"
-    ];
   };
 
   # Disable KWallet integration - Brave will use its own password storage instead

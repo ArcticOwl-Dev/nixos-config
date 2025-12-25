@@ -4,12 +4,13 @@
   imports = [
     ../../home/browser/brave.nix
     ../../home/cli/cli.nix
-    ../../home/git
+    ../../home/cli/git.nix
     ../../home/desktop/hyprland.nix
     ../../home/desktop/wlogout.nix
     ../../home/desktop/hyprlock.nix
     ../../home/desktop/wlogout.nix
     ../../home/appLauncher/walker.nix
+    ../../home/appLauncher/vicinae.nix
   ];
 
   home = {

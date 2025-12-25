@@ -3,10 +3,7 @@ let
   nerdFont = style.nerdFont;
 in
 {
-  # Install Nerd Fonts for terminal icons
-  # nerdfonts is a function that takes a list of fonts to include
-  # Using override to only include NotoMono (reduces package size significantly)
-  # Without override, it would include ALL nerd fonts (several GB)
+  # Install NixOS packages with home-manager
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     nerd-fonts.noto
@@ -14,7 +11,10 @@ in
     wget
   ];
 
-  programs.fish.enable = true;                              # fish (shell)
+  programs.fish = {
+    enable = true;                              # fish (shell)
+    generateCompletion = true;
+  };
   programs.eza = {                                          # eza (file explorer)
     enable = true;
     enableFishIntegration = true;
