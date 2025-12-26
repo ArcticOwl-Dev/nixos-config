@@ -2,13 +2,13 @@
 { config, lib, pkgs, inputs, style, ... }:
 {
   imports = [
-    ../../home/browser/brave.nix
+   # ../../home/browser/brave.nix
     ../../home/browser/firefox.nix
 
     ../../home/cli/cli.nix
     ../../home/cli/git.nix
 
-    ../../home/desktop/hyprland.nix
+    ../../home/desktop/hyprland/hyprland.nix
     ../../home/desktop/wlogout.nix
     ../../home/desktop/hyprlock.nix
     ../../home/desktop/waybar.nix

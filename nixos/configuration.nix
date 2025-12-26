@@ -6,10 +6,7 @@ let
 in
 {
   imports = [
-    ./i18n
-    ./sound
     ./code-editor/cursor
-    inputs.home-manager.nixosModules.home-manager
   ];
 
   # Nix configuration (inline, not a separate module)
@@ -52,24 +49,6 @@ in
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # Add home-manager command to system packages
-  environment.systemPackages = [
-    inputs.home-manager.packages.${config.nixpkgs.hostPlatform.system}.home-manager
-  ];
-
-  # Home Manager configuration
-  home-manager = {
-    extraSpecialArgs = { 
-      inherit inputs;
-      # Note: style variables should be defined in host-specific configuration
-      # For stardust, it's defined in hosts/stardust/configuration.nix
-    };
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    # Backup file extension for home-manager files (default is "backup")
-    backupFileExtension = "old";
-  };
 
   system.stateVersion = "25.11";
 }

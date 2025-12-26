@@ -3,6 +3,10 @@
 {
   imports = [
      ./hardware-configuration.nix
+     ../../nixos/desktop/hyprland
+     ../../nixos/sound/default.nix
+     ../../nixos/i18n/default.nix
+     
   ];
 
   networking.hostName = "snowfire";
@@ -17,14 +21,13 @@
     };
   };
 
-  # Home Manager user configuration (integrated into NixOS)
-  # Automatically imports base home/home.nix and host-specific home.nix
-  home-manager.users.r00t = {
-    imports = [
-      ../../home/home.nix  # Base home configuration (shared across all hosts)
-      ./home.nix           # Host-specific home configuration
-    ];
-  };
+    # UEFI Configuration (recommended)
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 5;
+
+  fonts.fontDir.enable = true;
+
 
 }
 

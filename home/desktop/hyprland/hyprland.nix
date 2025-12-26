@@ -2,7 +2,10 @@
 { config, lib, pkgs, style, ... }:
 let
   nerdFont = style.nerdFont;
-in
+imports = [
+  ./keybinds.nix
+];
+  in
 {
   # Install wofi (application launcher)
   home.packages = with pkgs; [ 
@@ -27,72 +30,8 @@ in
 
       # Monitor - Force 1920x1080 resolution
       # Empty monitor name (,) applies to all monitors
-      monitor = ",1920x1080@60,auto,1"; 
+      monitor = ",5120x1440@239.76,auto,1"; 
 
-
-      # Main modifier key (Super/Windows key)
-      "$mainMod" = "SUPER";
-      
-      # Keybindings
-      bind = [
-        # Launch appLauncher vicinae (Super + Space)
-        "$mainMod, SPACE, exec, vicinae toggle"
-
-        # Launch terminal (Super + Q) - foot (more reliable on Wayland)
-        "$mainMod, Q, exec, foot"
-        
-        # Test keybinding (Super + T) - opens a notification to test if keybindings work
-        "$mainMod, T, exec, notify-send 'Keybinding works!' 'If you see this, keybindings are working'"
-        
-        # Debug: Test if commands work (Super + Shift + T)
-        "$mainMod SHIFT, T, exec, foot -e sh -c 'echo Testing; read'"
-        
-        # Close window (Super + Shift + Q)
-        "$mainMod SHIFT, Q, killactive"
-        
-        # Exit Hyprland (Super + M)
-        "$mainMod, M, exit"
-        
-        # Alternative: Exit Hyprland (Super + Shift + E)
-        "$mainMod SHIFT, E, exit"
-        
-        # Launch walker (Super + R)
-        # If walker service is running, use the socket for faster launch
-        "$mainMod, R, exec, walker"
-        # Alternative if direct command doesn't work:
-        # "$mainMod, R, exec, ${pkgs.walker}/bin/walker"
-        
-        # Launch Brave browser (Super + B)
-        "$mainMod, B, exec, brave"
-        
-        # Move focus with arrow keys (Super + Arrow)
-        "$mainMod, left, movefocus, l"
-        "$mainMod, right, movefocus, r"
-        "$mainMod, up, movefocus, u"
-        "$mainMod, down, movefocus, d"
-        
-        # Switch workspaces (Super + 1-9)
-        "$mainMod, 1, workspace, 1"
-        "$mainMod, 2, workspace, 2"
-        "$mainMod, 3, workspace, 3"
-        "$mainMod, 4, workspace, 4"
-        "$mainMod, 5, workspace, 5"
-        "$mainMod, 6, workspace, 6"
-        "$mainMod, 7, workspace, 7"
-        "$mainMod, 8, workspace, 8"
-        "$mainMod, 9, workspace, 9"
-        
-        # Move window to workspace (Super + Shift + 1-9)
-        "$mainMod SHIFT, 1, movetoworkspace, 1"
-        "$mainMod SHIFT, 2, movetoworkspace, 2"
-        "$mainMod SHIFT, 3, movetoworkspace, 3"
-        "$mainMod SHIFT, 4, movetoworkspace, 4"
-        "$mainMod SHIFT, 5, movetoworkspace, 5"
-        "$mainMod SHIFT, 6, movetoworkspace, 6"
-        "$mainMod SHIFT, 7, movetoworkspace, 7"
-        "$mainMod SHIFT, 8, movetoworkspace, 8"
-        "$mainMod SHIFT, 9, movetoworkspace, 9"
-      ];
       
       # Basic settings
       input = {
@@ -102,8 +41,8 @@ in
       };
       
       general = {
-        gaps_in = 5;
-        gaps_out = 10;
+        gaps_in = 3;
+        gaps_out = 5;
         border_size = 2;
         "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
@@ -111,7 +50,7 @@ in
       };
       
       decoration = {
-        rounding = 10;
+        rounding = 3;
         blur = {
           enabled = true;
           size = 3;

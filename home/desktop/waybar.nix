@@ -17,7 +17,7 @@ in
     settings = [{
       height = 30;
       layer = "top";
-      position = "bottom";
+      position = "top";
       tray = { spacing = 10; };
       modules-center = [ "sway/window" ];
       modules-left = [ "sway/workspaces" "sway/mode" ];
