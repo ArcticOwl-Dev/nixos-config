@@ -49,7 +49,7 @@
         specialArgs = {inherit inputs;};
         modules = [
           ./nixos/configuration.nix
-          ./hosts/snowfire/configuration.nix
+          ./clients/snowfire/configuration.nix
 
           # home-manager
           home-manager.nixosModules.home-manager
@@ -57,16 +57,11 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            home-manager.users = {
-              r00t = import [
-                ./home/home.nix
-                ./host/snowfire/home.nix
-              ]
+            home-manager.users.r00t = import ./clients/snowfire/home.nix;
 
-            };
             home-manager.extraSpecialArgs = {
               inherit inputs;
-              style = import ./hosts/snowfire/style.nix
+              style = import ./clients/snowfire/style.nix;
             };
           }
         ];
@@ -76,9 +71,9 @@
         specialArgs = {inherit inputs;};
         modules = [
           ./nixos/configuration.nix
-          ./hosts/stardust/configuration.nix
+          ./clients/stardust/configuration.nix
         ];
-      }
-    }
-  }
+      };
+    };
+  };
 }

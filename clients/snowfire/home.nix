@@ -22,7 +22,9 @@
     homeDirectory = "/home/r00t";
   };
 
-  # Machine-specific Home Manager configuration for stardust
-  # Add your stardust-specific user settings here
+  # Nicely reload system units when changing configs
+  systemd.user.startServices = "sd-switch";
+
+  home.stateVersion = "25.11";
 }
 
