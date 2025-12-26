@@ -84,4 +84,19 @@ in
       };
     }];
   };
+
+  # Create waybar toggle script
+  home.file.".config/waybar/toggle.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      # Toggle waybar visibility
+      
+      if systemctl --user is-active --quiet waybar; then
+        systemctl --user stop waybar
+      else
+        systemctl --user start waybar
+      fi
+    '';
+  };
 }

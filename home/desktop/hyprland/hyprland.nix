@@ -2,11 +2,11 @@
 { config, lib, pkgs, style, ... }:
 let
   nerdFont = style.nerdFont;
-imports = [
-  ./keybinds.nix
-];
-  in
+in
 {
+  imports = [
+    ./keybinds.nix
+  ];
   # Install wofi (application launcher)
   home.packages = with pkgs; [ 
     wofi 
@@ -50,7 +50,7 @@ imports = [
       };
       
       decoration = {
-        rounding = 3;
+        rounding = 5;
         blur = {
           enabled = true;
           size = 3;

@@ -1,8 +1,8 @@
-{ }
+{ config, lib, pkgs, ... }:
 {
-    wayland.windowManager.hyprland.settings = {
+  wayland.windowManager.hyprland.settings = {
 
-      bind = [
+    bind = [
 
       # Window Control
       "SUPER, Q, killactive"                                                                   # Close window (Super + Q)
@@ -55,24 +55,24 @@
 
       # Actions
       "SUPER, SPACE, exec, vicinae toggle"                                                     # Launch appLauncher vicinae (Super + Space)
-      "SUPER, ENTER, excec, foot"                                                              # Launch terminal (Super + ENTER)
-      "SUPER, B, exec, foot"                                                                   # Launch browser (Super + B)
+      "SUPER, ENTER, exec, foot"                                                              # Launch terminal (Super + ENTER)
+      "SUPER, B, exec, firefox"                                                                   # Launch browser (Super + B)
       "SUPER, E, exec, foot"                                                                   # Launch Filemanager (Super + E) TODO: Add filemanager
       "SUPER, V, exec, $SCRIPTS/cliphist.sh"                                                    # Open clipboard manager
 
-      "SUPER, SHIFT, S, exec, notify-send 'FIXME: SCREENSHOT'"                                 # Take a screenshot (Super + Shift + S) TODO: Add screenshot
-      "SUPER, CTRL, K, exec, $HYPRSCRIPTS/keybindings.sh"                                      # Show keybindings
-      "SUPER, CTRL, B, exec, ~/.config/waybar/toggle.sh"                                       # Toggle waybar
-      "SUPER, ALT, G, exec, $HYPRSCRIPTS/gamemode.sh"                                          # Toggle game mode
+      "SUPER SHIFT, S, exec, notify-send 'FIXME: SCREENSHOT'"                                 # Take a screenshot (Super + Shift + S) TODO: Add screenshot
+      "SUPER CTRL, K, exec, $HYPRSCRIPTS/keybindings.sh"                                      # Show keybindings
+      "SUPER CTRL, B, exec, ~/.config/waybar/toggle.sh"                                       # Toggle waybar
+      "SUPER ALT, G, exec, $HYPRSCRIPTS/gamemode.sh"                                          # Toggle game mode
 
       # Fn keys
-      "XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"             # Increase volume by 5% (max 100% limit also added hold to raise volume)
-      "XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"                  # Reduce volume by 5% (min 0% limit also added hold to lower volume)
-      "XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"                         # Toggle mute
-      "XF86AudioPlay, exec, playerctl play-pause"                                              # Audio play pause
-      "XF86AudioPause, exec, playerctl pause"                                                  # Audio pause
-      "XF86AudioNext, exec, playerctl next"                                                    # Audio next
-      "XF86AudioPrev, exec, playerctl previous"                                                # Audio previous
+#      "XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"             # Increase volume by 5% (max 100% limit also added hold to raise volume)
+#      "XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"                  # Reduce volume by 5% (min 0% limit also added hold to lower volume)
+#      "XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"                         # Toggle mute
+#      "XF86AudioPlay, exec, playerctl play-pause"                                              # Audio play pause
+#      "XF86AudioPause, exec, playerctl pause"                                                  # Audio pause
+#      "XF86AudioNext, exec, playerctl next"                                                    # Audio next
+#      "XF86AudioPrev, exec, playerctl previous"                                                # Audio previous
 
     ];
 

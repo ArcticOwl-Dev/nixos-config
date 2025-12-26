@@ -22,6 +22,10 @@
     homeDirectory = "/home/r00t";
   };
 
+  home.packages = with pkgs; [
+    unified-remote
+  ];
+
   # Machine-specific Home Manager configuration for stardust
   # Add your stardust-specific user settings here
 }
