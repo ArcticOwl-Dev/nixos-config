@@ -31,6 +31,7 @@
     kitty # required for the default Hyprland config
 
     # Hyprland Stuff
+    hyprlock                                              # hyprlock (lock screen - needed for greetd)
     hypridle                                              # hypridle (idle detection)
     hyprpolkitagent                                       # hyprpolkitagent (polkit agent)
     pyprland                                              # pyprland (python bindings for hyprland)

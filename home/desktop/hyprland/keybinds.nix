@@ -64,6 +64,7 @@
       "SUPER CTRL, K, exec, $FIXME: KEYBINDINGS"                                                # Show keybindings
       "SUPER CTRL, B, exec, ~/.config/waybar/toggle.sh"                                         # Toggle waybar
       "SUPER ALT, G, exec, FIXME: GAMEMODE"                                                     # Toggle game mode
+      "SUPER, L, exec, hyprlock"                                                                # Lock screen (Super + L)
 
       # Fn keys
 #      "XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"             # Increase volume by 5% (max 100% limit also added hold to raise volume)

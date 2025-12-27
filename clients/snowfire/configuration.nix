@@ -29,15 +29,23 @@
     # UEFI Configuration (recommended)
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 5;
+  boot.loader.timeout = 2;
+
+  # Quiet boot - hide startup messages, only show errors
+  boot.kernelParams = [
+    "quiet"
+    "loglevel=3"  # Only show errors (0=emergency, 1=alert, 2=critical, 3=error, 4=warning, 5=notice, 6=info, 7=debug)
+    "systemd.show_status=auto"  # Only show status on errors or slow boots
+  ];
+  boot.consoleLogLevel = 4;  # Only show errors and warnings on console
+  boot.initrd.verbose = false;  # Reduce initrd verbosity
 
   fonts.fontDir.enable = true;
 
-  # Configure greetd session (handled by session.nix)
+  # Configure greetd for auto-login (handled by session.nix)
   host = {
-    gui.enable = true;  # Enable GUI for Hyprland
+    gui.enable = true;
     hyprland.enable = true;
-    default_session = "hyprlock_login";
   };
 
 }

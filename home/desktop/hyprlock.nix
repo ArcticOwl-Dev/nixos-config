@@ -19,6 +19,7 @@
         immediate_render = true;
         hide_cursor = false;
         no_fade_in = true;
+        grace = 0;
       };
 
       animation = [
@@ -33,13 +34,71 @@
         }
       ];
 
-      input-field = [
+      label = [
+        # TIME
         {
-          monitor = "eDP-1";
+          monitor = "";
+          text = "$TIME";
+          font_size = 150;
+          color = "rgb(b6c4ff)";
+          font_family = "profont";
+
+          position = "4%, 30%";
+
+          valign = "center";
+          halign = "left";
+
+          shadow_color = "rgba(0, 0, 0, 0.1)";
+          shadow_size = 20;
+          shadow_passes = 2;
+          shadow_boost = 0.3;
+        }
+        # DATE
+        {
+          monitor = "";
+          text = "cmd[update:3600000] date +'%a %b %d'";
+          font_size = 20;
+          color = "rgb(b6c4ff)";
+          font_family = "profont";
+
+          position = "4%, 38%";
+
+          valign = "center";
+          halign = "left";
+
+          shadow_color = "rgba(0, 0, 0, 0.1)";
+          shadow_size = 20;
+          shadow_passes = 2;
+          shadow_boost = 0.3;
+        }
+        # USERNAME
+        # {
+        #   monitor = "";
+        #   text = "Hi $USER";
+        #   font_size = 28;
+        #   color = "rgb(b6c4ff)";
+
+        #   position = "5%, 14%";
+
+        #   valign = "bottom";
+        #   halign = "left";
+
+        #   shadow_color = "rgba(0, 0, 0, 0.2)";
+        #   shadow_size = 10;
+        #   shadow_passes = 2;
+        #   shadow_boost = 0.3;
+        # }
+      ];
+      input-field = [
+        # PASSWORD
+        {
+          monitor = "";
 
           size = "300, 50";
+
           valign = "bottom";
-          position = "0%, 10%";
+          halign = "left";
+          position = "6%, 10%";
 
           outline_thickness = 1;
 
@@ -49,8 +108,10 @@
           check_color = "rgba(247, 193, 19, 0.5)";
           fail_color = "rgba(255, 106, 134, 0.5)";
 
+          font_family = "NotoMonoNF";
           fade_on_empty = false;
-          placeholder_text = "Enter Password";
+          placeholder_text = "  Password";
+          hide_input = false;
 
           dots_spacing = 0.2;
           dots_center = true;
@@ -59,41 +120,6 @@
           shadow_color = "rgba(0, 0, 0, 0.1)";
           shadow_size = 7;
           shadow_passes = 2;
-        }
-      ];
-
-      label = [
-        {
-          monitor = "";
-          text = "$TIME";
-          font_size = 150;
-          color = "rgb(b6c4ff)";
-
-          position = "0%, 30%";
-
-          valign = "center";
-          halign = "center";
-
-          shadow_color = "rgba(0, 0, 0, 0.1)";
-          shadow_size = 20;
-          shadow_passes = 2;
-          shadow_boost = 0.3;
-        }
-        {
-          monitor = "";
-          text = "cmd[update:3600000] date +'%a %b %d'";
-          font_size = 20;
-          color = "rgb(b6c4ff)";
-
-          position = "0%, 40%";
-
-          valign = "center";
-          halign = "center";
-
-          shadow_color = "rgba(0, 0, 0, 0.1)";
-          shadow_size = 20;
-          shadow_passes = 2;
-          shadow_boost = 0.3;
         }
       ];
     };

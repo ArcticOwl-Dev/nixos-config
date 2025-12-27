@@ -7,6 +7,7 @@ in
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     nerd-fonts.noto
+    nerd-fonts.profont
     curlFull
     wget
     nixfmt-rfc-style

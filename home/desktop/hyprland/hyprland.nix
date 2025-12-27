@@ -120,6 +120,9 @@ in
   # Set hyprcursor theme on Hyprland startup
   # hyprcursor will use XCURSOR_THEME automatically, but we set it explicitly for hyprcursor
   wayland.windowManager.hyprland.extraConfig = ''
+    # Lock screen immediately on Hyprland startup
+    exec-once = hyprlock
+    
     # Set cursor theme using hyprcursor (Bibata Modern Classic Right)
     exec-once = hyprctl setcursor "Bibata-Modern-Classic" 24
     
