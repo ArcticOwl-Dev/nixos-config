@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
 
     #Hyprland desktop configuration 
-    ../../nixos/desktop/hyprland
+    ../../config/desktop/hyprland
 
   ];
 
@@ -23,7 +23,7 @@
   };
   
   # Add host-specific extraSpecialArgs for home-manager
-  # This extends the global extraSpecialArgs from nixos/configuration.nix
+  # This extends the global extraSpecialArgs from config/configuration.nix
   home-manager.extraSpecialArgs = {
     inherit inputs;
     # Import host-specific style configuration

@@ -14,7 +14,7 @@ nixos-config/
 │   │   └── style.nix              # Styling/theming
 │   └── stardust/        # Stardust machine config
 │
-├── nixos/               # NixOS configuration files
+├── config/              # NixOS configuration files
 │   ├── configuration.nix          # Base NixOS config
 │   ├── desktop/                   # Desktop environment configs
 │   ├── sound/                     # Audio configuration
@@ -46,11 +46,11 @@ nixos-config/
 ### Directory Purposes
 
 - **`clients/`** - Machine-specific configurations (system + home manager)
-- **`nixos/`** - NixOS configuration files (values, not module definitions)
-- **`modules/`** - Reusable NixOS modules (define options and system integration)
-- **`pkgs/`** - Custom package definitions (how to build/fetch packages)
+- **`config/`** - NixOS configuration files (values, not module definitions)
 - **`home/`** - Home Manager configuration modules
+- **`modules/`** - Reusable NixOS modules (define options and system integration)
 - **`overlays/`** - Nixpkgs overlays for custom packages
+- **`pkgs/`** - Custom package definitions (how to build/fetch packages)
 
 See `pkgs/readme.md` and `modules/readme.md` for more details on those directories.
 

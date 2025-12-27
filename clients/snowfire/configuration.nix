@@ -3,10 +3,10 @@
 {
   imports = [
      ./hardware-configuration.nix
-     ../../nixos/desktop/hyprland
-     ../../nixos/sound/default.nix
-     ../../nixos/i18n/default.nix
-     ../../nixos/remote-touchpad/remote-touchpad.nix
+     ../../config/desktop/hyprland
+     ../../config/sound/default.nix
+     ../../config/i18n/default.nix
+     ../../config/remote-touchpad/remote-touchpad.nix
   ];
 
   networking.hostName = "snowfire";

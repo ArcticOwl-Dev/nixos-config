@@ -32,15 +32,15 @@ Modules typically:
 ## What does NOT go here?
 
 - **Package definitions** → Go in `pkgs/`
-- **Configuration values** → Go in `nixos/` (config files that use these modules)
+- **Configuration values** → Go in `config/` (config files that use these modules)
 - **Client-specific config** → Go in `clients/`
 
 ## Usage
 
-Modules are imported in configuration files (like `nixos/remote-touchpad/remote-touchpad.nix`) where you set the actual configuration values. The module defines *what* can be configured, while the config files define *how* it's configured.
+Modules are imported in configuration files (like `config/remote-touchpad/remote-touchpad.nix`) where you set the actual configuration values. The module defines *what* can be configured, while the config files define *how* it's configured.
 
 ## Key difference from config files
 
 - **Modules** (`modules/`) = Define *options* and *how* to configure the system
-- **Config files** (`nixos/`) = Set the actual *values* for those options
+- **Config files** (`config/`) = Set the actual *values* for those options
 

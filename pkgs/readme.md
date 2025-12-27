@@ -23,8 +23,8 @@ Each package should have its own subdirectory with a `default.nix` file:
 ## What does NOT go here?
 
 - **NixOS modules** → Go in `modules/`
-- **Configuration files** → Go in `nixos/`
-- **System configuration** → Go in `nixos/` or `clients/`
+- **Configuration files** → Go in `config/`
+- **System configuration** → Go in `config/` or `clients/`
 
 ## Usage
 

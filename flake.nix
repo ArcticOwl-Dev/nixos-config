@@ -48,7 +48,7 @@
       snowfire = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-          ./nixos/configuration.nix
+          ./config/configuration.nix
           ./clients/snowfire/configuration.nix
 
           # home-manager
@@ -70,7 +70,7 @@
       stardust = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-          ./nixos/configuration.nix
+          ./config/configuration.nix
           ./clients/stardust/configuration.nix
         ];
       };
