@@ -2,7 +2,7 @@
 { config, lib, pkgs, inputs, style, ... }:
 {
   imports = [
-   # ../../home/browser/brave.nix
+    ../../home/scripts/default.nix
     ../../home/browser/firefox.nix
 
     ../../home/cli/cli.nix
