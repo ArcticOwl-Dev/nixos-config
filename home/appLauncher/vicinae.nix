@@ -13,11 +13,11 @@ in
             enable = true;
             autoStart = true; # default: false
             environment = {
-            USE_LAYER_SHELL = 1;
+                USE_LAYER_SHELL = "0";
             };
         };
         settings = {
-            closeOnFocusLoss = true;
+            close_on_focus_loss = true;
             considerPreedit = true;
             pop_to_root_on_close = true;
             favicon_service = "twenty";
@@ -41,6 +41,33 @@ in
             launcher_window = {
             opacity = 0.95;
             };
+            providers = {
+              "@Gelei/bluetooth-0" = {
+                enabled = false;
+              };
+              "@sovereign/hypr-keybinds-0" = {
+                  "preferences"= {
+                      "keybindsConfigPath" ="~/.config/hypr/hyprland.conf";
+                  };
+              };
+              "applications" = {
+                "entrypoints" = {
+                    "foot-server" = {
+                      "enabled" = false;
+                    };
+                    "footclient" = {
+                      "enabled" = false;
+                    };
+                };
+              };
+              "core" = {
+                "entrypoints" = {
+                    "sponsor" = {
+                      "enabled" = false;
+                    };
+                };
+            };
+        };
         };
           extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
                 bluetooth
@@ -53,4 +80,5 @@ in
                 # Extension names can be found in the link below, it's just the folder names
             ];
     };
+
 }

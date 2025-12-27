@@ -79,6 +79,13 @@ in
       misc = {
         force_default_wallpaper = -1;
       };
+
+      # Blur rules for vicinae
+      layerrule = [
+        "blur,vicinae"
+        "ignorealpha 0, vicinae"
+      ];
+
     };
   };
   
@@ -106,6 +113,8 @@ in
     # BROWSER = "brave";
     # Set desktop environment to prevent KDE/KWallet detection
     XDG_CURRENT_DESKTOP = "Hyprland";
+    # Disable layer shell for vicinae (prevents closing when clicking outside)
+    USE_LAYER_SHELL = "0";
   };
   
   # Set hyprcursor theme on Hyprland startup

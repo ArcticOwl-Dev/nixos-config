@@ -9,6 +9,7 @@ in
     nerd-fonts.noto
     curlFull
     wget
+    nixfmt-rfc-style
   ];
 
   programs.fish = {

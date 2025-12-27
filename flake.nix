@@ -38,7 +38,7 @@
 
   in {
     packages = import ./pkgs nixpkgs.legacyPackages.${system};
-    formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+    formatter = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
 
     overlays = import ./overlays {inherit inputs;};
  
@@ -56,6 +56,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
 
             home-manager.users.r00t = import ./clients/snowfire/home.nix;
 
