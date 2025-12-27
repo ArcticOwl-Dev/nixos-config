@@ -3,6 +3,7 @@
 {
   imports = [
      ./hardware-configuration.nix
+     ./session.nix
      ../../config/desktop/hyprland
      ../../config/sound/default.nix
      ../../config/i18n/default.nix
@@ -32,6 +33,12 @@
 
   fonts.fontDir.enable = true;
 
+  # Configure greetd session (handled by session.nix)
+  host = {
+    gui.enable = true;  # Enable GUI for Hyprland
+    hyprland.enable = true;
+    default_session = "hyprlock_login";
+  };
 
 }
 
