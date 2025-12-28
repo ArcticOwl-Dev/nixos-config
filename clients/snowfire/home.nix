@@ -12,6 +12,7 @@
     ../../home/desktop/wlogout.nix
     ../../home/desktop/hyprlock.nix
     ../../home/desktop/waybar.nix
+    ../../home/desktop/awww.nix
     
     ../../home/appLauncher/walker.nix
     ../../home/appLauncher/vicinae.nix

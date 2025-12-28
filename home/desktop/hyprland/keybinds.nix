@@ -54,11 +54,11 @@
       "SUPER SHIFT, 9, movetoworkspacesilent, 9"                                                # Move active window to workspace 9
 
       # Actions
-      "SUPER, SPACE, exec, env USE_LAYER_SHELL=0 vicinae toggle"                                # Launch appLauncher vicinae (Super + Space)
+      "SUPER, SPACE, exec, vicinae toggle"                                # Launch appLauncher vicinae (Super + Space)
       "SUPER, Return, exec, foot"                                                               # Launch terminal (Super + ENTER)
       "SUPER, B, exec, firefox"                                                                 # Launch browser (Super + B)
       "SUPER, E, exec, foot"                                                                    # Launch Filemanager (Super + E) TODO: Add filemanager
-      "SUPER, V, exec, env USE_LAYER_SHELL=0 vicinae vicinae://extensions/vicinae/clipboard/history"  # Open clipboard manager
+      "SUPER, V, exec, vicinae vicinae://extensions/vicinae/clipboard/history"  # Open clipboard manager
 
       "SUPER SHIFT, S, exec, notify-send 'FIXME: SCREENSHOT'"                                   # Take a screenshot (Super + Shift + S) TODO: Add screenshot
       "SUPER CTRL, K, exec, $FIXME: KEYBINDINGS"                                                # Show keybindings

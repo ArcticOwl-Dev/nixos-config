@@ -50,7 +50,7 @@
     wl-clipboard                                          # wl-clipboard (clipboard manager)
     wlogout                                               # wlogout (logout menu)
     wdisplays                                             # wdisplays (display manager)
-    swww                                                  # swww (wallpaper manager)
+    swww                                                  # awww (wallpaper manager, package still named swww in nixpkgs)
     swappy                                                # swappy (screenshot tool)
     slurp                                                 # slurp (selection tool)
     grim                                                  # grim (screenshot tool)
