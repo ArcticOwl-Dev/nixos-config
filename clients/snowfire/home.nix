@@ -14,6 +14,8 @@
     ../../home/desktop/waybar.nix
     ../../home/desktop/awww.nix
     
+    ../../home/fileManager/dolphin.nix
+    
     ../../home/appLauncher/walker.nix
     ../../home/appLauncher/vicinae.nix
   ];
