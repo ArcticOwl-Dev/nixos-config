@@ -13,17 +13,8 @@ let
   '';
 in
 {
-  programs.chromium = {
-    enable = true;
-    package = pkgs.brave;
-    # Disable KWallet - use basic password storage instead
-    commandLineArgs = [
-      "--password-store=basic"
-      "--disable-features=UseChromeOSDirectVideoDecoder"
-    ];
-  };
-
   # Install wrapped Brave that disables KWallet
+  # This wrapper handles all the necessary flags and environment variables
   home.packages = [ braveWithFlags ];
 
   # Disable KWallet integration - Brave will use its own password storage instead

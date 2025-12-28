@@ -2,4 +2,5 @@
 # You can build them using 'nix build .#example'
 pkgs: {
   remote-touchpad = pkgs.callPackage ./remote-touchpad { };
+  plymouth-theme-cuts = pkgs.callPackage ./plymouth-theme-cuts { };
 }

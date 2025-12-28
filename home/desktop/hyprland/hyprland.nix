@@ -80,12 +80,6 @@ in
         force_default_wallpaper = -1;
       };
 
-      # Blur rules for vicinae
-      layerrule = [
-        "blur,vicinae"
-        "ignorealpha 0, vicinae"
-      ];
-
     };
   };
   
@@ -96,9 +90,11 @@ in
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;  # Needed for Xwayland apps
-    name = "Bibata-Modern-Classic";
     size = 24;
+    name = "Bibata-Modern-Classic";
     package = pkgs.bibata-cursors;
+    #name = "BreezeX-Dark";
+    #package = pkgs.breeze-icons;
   };
 
   # Environment variables for Wayland support
@@ -120,9 +116,6 @@ in
   # Set hyprcursor theme on Hyprland startup
   # hyprcursor will use XCURSOR_THEME automatically, but we set it explicitly for hyprcursor
   wayland.windowManager.hyprland.extraConfig = ''
-    # Lock screen immediately on Hyprland startup
-    exec-once = hyprlock
-    
     # Set cursor theme using hyprcursor (Bibata Modern Classic Right)
     exec-once = hyprctl setcursor "Bibata-Modern-Classic" 24
     

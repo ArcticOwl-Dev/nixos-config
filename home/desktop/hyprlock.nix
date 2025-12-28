@@ -124,4 +124,10 @@
       ];
     };
   };
+
+  # Lock screen immediately on Hyprland startup (Home Manager config)
+  wayland.windowManager.hyprland.extraConfig = ''
+    # Lock screen immediately on Hyprland startup
+    exec-once = hyprlock
+  '';
 }

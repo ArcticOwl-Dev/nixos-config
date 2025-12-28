@@ -1,6 +1,6 @@
 {config, lib, pkgs, ...}:
 {
-  home.packages = with pkgs; [ 
+    home.packages = with pkgs; [ 
     kdePackages.dolphin 
     kdePackages.qtsvg             # for svg support
     kdePackages.kio               

@@ -22,48 +22,30 @@
     };
   };
 
-  
+  # Greetd auto-login configuration
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.hyprland}/bin/Hyprland";
+        user = "r00t";
+      };
+    };
+  };
 
 
 
 
   environment.systemPackages = with pkgs; [
-    kitty # required for the default Hyprland config
-
-    # Hyprland Stuff
-    hyprlock                                              # hyprlock (lock screen - needed for greetd)
-    hypridle                                              # hypridle (idle detection)
-    hyprpolkitagent                                       # hyprpolkitagent (polkit agent)
-    pyprland                                              # pyprland (python bindings for hyprland)
+    # System-wide packages (needed for system services or multiple users)
+    mesa                                                  # mesa (graphics driver - system-wide)
+    hyprpolkitagent                                       # hyprpolkitagent (polkit agent - system-wide)
+    hyprland-qt-support                                   # hyprland-qt-support (qt support - system-wide)
+    libappindicator                                       # libappindicator (app indicator - system-wide library)
+    libnotify                                             # libnotify (notification manager - system-wide library)
     
-    #uwsm
-    hyprlang                                              # hyprlang (language support)
-    hyprshot                                              # hyprshot (screenshot tool)
-    hyprcursor                                            # hyprcursor (cursor support)
-    mesa                                                  # mesa (graphics driver)
-    nwg-displays                                          # nwg-displays (display manager)
-    nwg-look                                              # nwg-look (theme manager)
-    waypaper                                              # waypaper (wallpaper manager)
-    waybar                                                # waybar (taskbar)
-    hyprland-qt-support                                   # hyprland-qt-support (qt support)
-
-    wl-clipboard                                          # wl-clipboard (clipboard manager)
-    wlogout                                               # wlogout (logout menu)
-    wdisplays                                             # wdisplays (display manager)
-    swww                                                  # awww (wallpaper manager, package still named swww in nixpkgs)
-    swappy                                                # swappy (screenshot tool)
-    slurp                                                 # slurp (selection tool)
-    grim                                                  # grim (screenshot tool)
-    grimblast                                             # grimblast (screenshot tool)
-
-    #rofi                                                  # rofi (application launcher)
-
-    pavucontrol                                           # pavucontrol (pulseaudio control)
-    playerctl                                             # playerctl (media player controller)
-    pamixer                                               # pamixer (pulseaudio mixer)
-
-    libappindicator                                       # libappindicator (app indicator)
-    libnotify                                             # libnotify (notification manager)
+    # Note: User-specific packages (waybar, hyprlock, hypridle, swww, grim, slurp, etc.)
+    # are configured in Home Manager and don't need to be in systemPackages
   ];
 
   # Optional, hint Electron apps to use Wayland:

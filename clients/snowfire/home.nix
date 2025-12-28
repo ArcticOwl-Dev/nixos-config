@@ -3,6 +3,7 @@
 {
   imports = [
     ../../home/scripts/default.nix
+    ../../home/browser/brave.nix
     ../../home/browser/firefox.nix
 
     ../../home/cli/cli.nix

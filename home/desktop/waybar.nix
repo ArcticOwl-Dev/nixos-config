@@ -1,20 +1,7 @@
 { config, pkgs, lib, style, ... }:
 let
   nerdFont = style.nerdFont;
-in
-{
-  programs.waybar = {
-    enable = true;
-    systemd.enable = true;
-    style = ''
-      ${builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/style.css"}
-
-      window#waybar {
-        background: transparent;
-        border-bottom: none;
-      }
-    '';
-    settings = [{
+  waybarSettings = {
       height = 30;
       layer = "top";
       position = "top";
@@ -82,7 +69,33 @@ in
         format = "{temperatureC}°C {icon}";
         format-icons = [ "" "" "" ];
       };
-    }];
+    };
+  waybarStyle = ''
+    ${builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/style.css"}
+
+    window#waybar {
+      background: transparent;
+      border-bottom: none;
+    }
+  '';
+in
+{
+  programs.waybar = {
+    enable = true;
+    systemd.enable = true;
+    style = waybarStyle;
+    settings = [ waybarSettings ];
+  };
+
+  # Force overwrite existing waybar config files
+  # This ensures Home Manager overwrites existing files instead of failing
+  xdg.configFile."waybar/config" = {
+    force = true;
+    text = builtins.toJSON waybarSettings;
+  };
+  xdg.configFile."waybar/style.css" = {
+    force = true;
+    text = waybarStyle;
   };
 
   # Create waybar toggle script

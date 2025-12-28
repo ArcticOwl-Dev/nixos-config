@@ -25,12 +25,16 @@
        inputs.nixpkgs.follows = "nixpkgs";
      };
 
+    # grub2-themes
+    grub2-themes.url = "github:vinceliuice/grub2-themes";
+
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
+    grub2-themes,
     ...
   } @ inputs: let
     # Supported systems for your flake packages, shell, etc.
@@ -51,6 +55,7 @@
           ./config/configuration.nix
           ./clients/snowfire/configuration.nix
 
+          grub2-themes.nixosModules.default
           # home-manager
           home-manager.nixosModules.home-manager
           {
