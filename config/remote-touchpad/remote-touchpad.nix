@@ -10,7 +10,7 @@
   services.remote-touchpad = {
     enable = true;
     user = "r00t";
-    autoStart = false;  # Set to true if you want it to start automatically
+    autoStart = true;  # Set to true if you want it to start automatically
     port = 40999;       # Default port
     keymap = "de";      # German keyboard layout
     secret = "your-secret-password-here";  # Set a secret to avoid QR code scanning

@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     rev = "master";
     # Note: On first build, Nix will error with the correct hash.
     # Replace this placeholder with the hash Nix provides.
-    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    hash = "sha256-e3lRgIBzDkKcWEp5yyRCzQJM6yyTjYC5XmNUZZroDuw==";
   };
 
   # Only extract the cuts theme directory

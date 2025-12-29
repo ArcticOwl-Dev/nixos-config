@@ -7,10 +7,10 @@ in
   imports = [
     ./keybinds.nix
   ];
-  # Install wofi (application launcher)
-  home.packages = with pkgs; [ 
-    wofi 
-    bibata-cursors
+ 
+
+  home.packages = with pkgs; [  
+    bibata-cursors          # Cursor theme
     ];
   
   # Configure foot terminal (simpler, more reliable on Wayland)
@@ -23,6 +23,28 @@ in
       };
     };
   };
+
+  # Configure satty (screenshot tool)
+  programs.satty = {
+    enable = true;
+    settings = {
+      general = {
+        fullscreen = true;
+        corner-roundness = 12;
+        initial-tool = "brush";
+        output-filename = "/tmp/test-%Y-%m-%d_%H:%M:%S.png";
+      };
+      color-palette = {
+        palette = [ "#00ffff" "#a52a2a" "#dc143c" "#ff1493" "#ffd700" "#008000" ];
+      };
+    };
+  };
+
+  # Enable Hyprland Plicykit Agent
+  programs.hyprpolkitagent = {
+    enable = true;
+  };
+
   wayland.windowManager.hyprland = {
     enable = true; # enable Hyprland
     
@@ -47,6 +69,17 @@ in
         "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
         layout = "dwindle";
+        resize_on_border = true;
+        extend_border_grab_area = 10;
+        hover_icon_on_border = true;
+
+        snap = {
+          enabled = true;
+          window_gap = 10;
+          monitor_gap = 10;
+          border_overlap = false;
+          respect_gaps = false;
+        }
       };
       
       decoration = {
@@ -60,7 +93,7 @@ in
       };
       
       animations = {
-        enabled = "yes";
+        enabled = true;
         bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
         animation = [
           "windows, 1, 7, myBezier"
@@ -72,8 +105,11 @@ in
       };
       
       dwindle = {
-        pseudotile = "yes";
-        preserve_split = "yes";
+        pseudotile = true;
+        preserve_split = true;
+        smart_split = true;
+        smart_resizing = true;
+        single_window_aspect_ratio = 16 9
       };
       
       misc = {
@@ -121,5 +157,8 @@ in
     
     # Start vicinae service on Hyprland startup
     exec-once = systemctl --user start vicinae
+
+    # Start hyprpolkitagent service on Hyprland startup
+    exec-once = systemctl --user start hyprpolkitagent
   '';
 }

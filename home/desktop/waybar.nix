@@ -2,12 +2,22 @@
 let
   nerdFont = style.nerdFont;
   waybarSettings = {
+      # General
+      layer = "bottom";              
+      position = "bottom";
       height = 30;
-      layer = "top";
-      position = "top";
+      spacing = 4;
+      mode = "dock";
+      start_hidden = false;
+      exclusive = true;
+      fixed-center = true;
+      passthrough = false;
+      reload_style_on 
+
+
       tray = { spacing = 10; };
       modules-center = [ "sway/window" ];
-      modules-left = [ "sway/workspaces" "sway/mode" ];
+      modules-left = [ "hyprland/workspaces"];
       modules-right = [
         "pulseaudio"
         "network"
@@ -17,6 +27,20 @@ let
         "clock"
         "tray"
       ];
+
+      # Modules
+      "hyprland/workspaces": {
+        "format": "<sub>{icon}</sub>\n{windows}",
+        "format-window-separator": "\n",
+        "window-rewrite-default": "",
+        "window-rewrite": {
+          "title<.*youtube.*>": "", // Windows whose titles contain "youtube"
+          "class<firefox>": "", // Windows whose classes are "firefox"
+          "class<firefox> title<.*github.*>": "", // Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
+          "foot": "", // Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
+          "code": "󰨞",
+        }
+      };
       battery = {
         format = "{capacity}% {icon}";
         format-alt = "{time} {icon}";
@@ -74,7 +98,7 @@ let
     ${builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/style.css"}
 
     window#waybar {
-      background: transparent;
+      background: black;
       border-bottom: none;
     }
   '';
