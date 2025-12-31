@@ -57,11 +57,11 @@
       "SUPER, SPACE, exec, vicinae toggle"                                # Launch appLauncher vicinae (Super + Space)
       "SUPER, Return, exec, foot"                                                               # Launch terminal (Super + ENTER)
       "SUPER, B, exec, firefox"                                                                 # Launch browser (Super + B)
-      "SUPER, E, exec, foot"                                                                    # Launch Filemanager (Super + E) TODO: Add filemanager
+      "SUPER, E, exec, dolphin"                                                                # Launch file manager (Super + E)
       "SUPER, V, exec, vicinae vicinae://extensions/vicinae/clipboard/history"  # Open clipboard manager
 
-      "SUPER SHIFT, S, exec, notify-send 'FIXME: SCREENSHOT'"                                   # Take a screenshot (Super + Shift + S) TODO: Add screenshot
-      "SUPER CTRL, K, exec, $FIXME: KEYBINDINGS"                                                # Show keybindings
+      "SUPER SHIFT, S, exec, satty"                                                            # Take a screenshot with satty (Super + Shift + S)
+      "SUPER CTRL, K, exec, notify-send 'Keybinds' 'Super+Q: Close\\nSuper+F: Fullscreen\\nSuper+T: Float\\nSuper+Space: Launcher\\nSuper+Return: Terminal\\nSuper+B: Browser\\nSuper+E: File Manager\\nSuper+L: Lock'"  # Show keybindings (Super + Ctrl + K)
       "SUPER CTRL, B, exec, ~/.config/waybar/toggle.sh"                                         # Toggle waybar
       "SUPER ALT, G, exec, FIXME: GAMEMODE"                                                     # Toggle game mode
       "SUPER, L, exec, hyprlock"                                                                # Lock screen (Super + L)

@@ -8,14 +8,74 @@ let
     export CHROMIUM_FLAGS="--password-store=basic"
     exec ${pkgs.brave}/bin/brave \
       --password-store=basic \
-      --disable-features=UseChromeOSDirectVideoDecoder \
+      --enable-features=UseOzonePlatform \
+      --ozone-platform=wayland \
+      --enable-gpu \
+      --enable-gpu-rasterization \
+      --enable-zero-copy \
+      --use-gl=egl \
+      --enable-features=VaapiVideoDecoder \
+      --disable-gpu-vsync \
       "$@"
   '';
+  
+  brave = pkgs.makeDesktopItem {
+    name = "brave-browser";
+    desktopName = "Brave";
+    genericName = "Web Browser";
+    exec = "${braveWithFlags}/bin/brave %U";
+    # Use icon name - hicolor-icon-theme should have it
+    icon = "brave-browser";
+    terminal = false;
+    categories = [ "Network" "WebBrowser" ];
+    mimeTypes = [
+      "text/html"
+      "text/xml"
+      "application/xhtml+xml"
+      "application/vnd.mozilla.xul+xml"
+      "x-scheme-handler/http"
+      "x-scheme-handler/https"
+    ];
+  };
+  
+  braveYouTube = pkgs.writeTextFile {
+    name = "brave-youtube.desktop";
+    destination = "/share/applications/brave-youtube.desktop";
+    text = ''
+      [Desktop Entry]
+      Version=1.0
+      Type=Application
+      Name=YouTube
+      GenericName=Video Streaming
+      Exec=${braveWithFlags}/bin/brave --app=https://www.youtube.com
+      Icon=youtube
+      Terminal=false
+      Categories=Network;Video
+      StartupWMClass=brave-www.youtube.com__-Default
+    '';
+  };
+  
+  braveTwitch = pkgs.writeTextFile {
+    name = "brave-twitch.desktop";
+    destination = "/share/applications/brave-twitch.desktop";
+    text = ''
+      [Desktop Entry]
+      Version=1.0
+      Type=Application
+      Name=Twitch
+      GenericName=Video Streaming
+      Exec=${braveWithFlags}/bin/brave --app=https://www.twitch.tv
+      Icon=gnome-twitch
+      Terminal=false
+      Categories=Network;Video
+      StartupWMClass=brave-www.twitch.tv__-Default
+    '';
+  };
 in
 {
   # Install wrapped Brave that disables KWallet
   # This wrapper handles all the necessary flags and environment variables
-  home.packages = [ braveWithFlags ];
+  home.packages = [ braveWithFlags brave braveYouTube braveTwitch ];
 
   # Disable KWallet integration - Brave will use its own password storage instead
   # This prevents the "kde.kwallet is not installed" error

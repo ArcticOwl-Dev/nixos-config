@@ -35,7 +35,7 @@ in
             };
             dark = {
                 name = "vicinae-dark";
-                icon_theme = "default";
+                icon_theme = "Papirus-Dark";
             };
             };
             launcher_window = {

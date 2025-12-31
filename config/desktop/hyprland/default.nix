@@ -10,10 +10,7 @@
   };
 
   programs = {
-    waybar.enable = true;                                 # enable waybar (taskbar)
-    hyprlock.enable = true;                               # enable hyprlock (lock screen)
     dconf.enable = true;                                  # enable dconf (gnome settings manager)
-    seahorse.enable = true;                               # enable seahorse (password manager)
     fuse.userAllowOther = true;                           # enable fuse (file system manager)
     mtr.enable = true;                                    # enable mtr (network monitor)
     gnupg.agent = {

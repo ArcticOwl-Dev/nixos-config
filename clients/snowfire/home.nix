@@ -12,7 +12,7 @@
     ../../home/desktop/hyprland/hyprland.nix
     ../../home/desktop/wlogout.nix
     ../../home/desktop/hyprlock.nix
-    ../../home/desktop/waybar.nix
+    ../../home/desktop/waybar/waybar.nix
     ../../home/desktop/awww.nix
     
     ../../home/fileManager/dolphin.nix

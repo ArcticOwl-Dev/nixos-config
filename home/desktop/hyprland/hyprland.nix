@@ -11,6 +11,10 @@ in
 
   home.packages = with pkgs; [  
     bibata-cursors          # Cursor theme
+    adwaita-icon-theme      # Icon theme for applications (used by waybar wlr/taskbar)
+    papirus-icon-theme      # Additional icon theme with more application icons (YouTube, Twitch, etc.)
+    hicolor-icon-theme      # Fallback icon theme (contains Brave icon)
+    nwg-dock-hyprland      # Dock for applications (used by waybar wlr/taskbar)
     ];
   
   # Configure foot terminal (simpler, more reliable on Wayland)
@@ -40,10 +44,9 @@ in
     };
   };
 
-  # Enable Hyprland Plicykit Agent
-  programs.hyprpolkitagent = {
-    enable = true;
-  };
+  # Enable Hyprland Policykit Agent
+  services.hyprpolkitagent.enable = true;
+  
 
   wayland.windowManager.hyprland = {
     enable = true; # enable Hyprland
@@ -79,7 +82,7 @@ in
           monitor_gap = 10;
           border_overlap = false;
           respect_gaps = false;
-        }
+        };
       };
       
       decoration = {
@@ -109,12 +112,19 @@ in
         preserve_split = true;
         smart_split = true;
         smart_resizing = true;
-        single_window_aspect_ratio = 16 9
+        single_window_aspect_ratio = "16 9";
       };
       
       misc = {
         force_default_wallpaper = -1;
       };
+
+      # Window rules for better performance with video apps
+      windowrulev2 = [
+        # Optimize YouTube/Twitch app windows - disable animations and blur for better video performance
+        "noanim,class:^(brave-.*)$"
+        "noblur,class:^(brave-.*)$"
+      ];
 
     };
   };
@@ -140,6 +150,8 @@ in
     # Ensure Wayland is the default
     GDK_BACKEND = "wayland";
     QT_QPA_PLATFORM = "wayland";
+    # Papirus has more application icons including YouTube, Twitch, etc.
+    GTK_ICON_THEME = "Papirus-Dark";
     # Set default browser 
     BROWSER = "firefox";
     # BROWSER = "brave";

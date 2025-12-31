@@ -20,6 +20,12 @@ in
     executable = true;
   };
 
+  # get-window-info: Get window class and title for waybar configuration
+  home.file."${scriptsDir}/get-window-info" = {
+    source = ./get-window-info.sh;
+    executable = true;
+  };
+
   # Example: If you have a script file in this directory, reference it like this:
   # home.file."${scriptsDir}/my-script.sh" = {
   #   source = ./my-script.sh;
