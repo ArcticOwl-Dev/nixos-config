@@ -28,6 +28,12 @@
     # grub2-themes
     grub2-themes.url = "github:vinceliuice/grub2-themes";
 
+    # Dank Linux taskbar
+    dms ={
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }
+
   };
 
   outputs = {
