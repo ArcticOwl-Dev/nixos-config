@@ -152,9 +152,8 @@ in
     QT_QPA_PLATFORM = "wayland";
     # Papirus has more application icons including YouTube, Twitch, etc.
     GTK_ICON_THEME = "Papirus-Dark";
-    # Set default browser 
-    BROWSER = "firefox";
-    # BROWSER = "brave";
+    # Set default browser for terminal/CLI tools
+    BROWSER = "brave";
     # Set desktop environment to prevent KDE/KWallet detection
     XDG_CURRENT_DESKTOP = "Hyprland";
     # Disable layer shell for vicinae (prevents closing when clicking outside)

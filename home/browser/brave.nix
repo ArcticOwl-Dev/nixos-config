@@ -19,63 +19,43 @@ let
       "$@"
   '';
   
-  brave = pkgs.makeDesktopItem {
-    name = "brave-browser";
-    desktopName = "Brave";
-    genericName = "Web Browser";
-    exec = "${braveWithFlags}/bin/brave %U";
-    # Use icon name - hicolor-icon-theme should have it
-    icon = "brave-browser";
-    terminal = false;
-    categories = [ "Network" "WebBrowser" ];
-    mimeTypes = [
-      "text/html"
-      "text/xml"
-      "application/xhtml+xml"
-      "application/vnd.mozilla.xul+xml"
-      "x-scheme-handler/http"
-      "x-scheme-handler/https"
-    ];
-  };
-  
-  braveYouTube = pkgs.writeTextFile {
-    name = "brave-youtube.desktop";
-    destination = "/share/applications/brave-youtube.desktop";
-    text = ''
-      [Desktop Entry]
-      Version=1.0
-      Type=Application
-      Name=YouTube
-      GenericName=Video Streaming
-      Exec=${braveWithFlags}/bin/brave --app=https://www.youtube.com
-      Icon=youtube
-      Terminal=false
-      Categories=Network;Video
-      StartupWMClass=brave-www.youtube.com__-Default
-    '';
-  };
-  
-  braveTwitch = pkgs.writeTextFile {
-    name = "brave-twitch.desktop";
-    destination = "/share/applications/brave-twitch.desktop";
-    text = ''
-      [Desktop Entry]
-      Version=1.0
-      Type=Application
-      Name=Twitch
-      GenericName=Video Streaming
-      Exec=${braveWithFlags}/bin/brave --app=https://www.twitch.tv
-      Icon=gnome-twitch
-      Terminal=false
-      Categories=Network;Video
-      StartupWMClass=brave-www.twitch.tv__-Default
-    '';
-  };
 in
 {
   # Install wrapped Brave that disables KWallet
   # This wrapper handles all the necessary flags and environment variables
-  home.packages = [ braveWithFlags brave braveYouTube braveTwitch ];
+  # braveWithFlags needs to be in packages so it's available in PATH
+  home.packages = [ braveWithFlags ];
+
+  # Create desktop entries for Brave browser and PWA apps
+  # Using xdg.desktopEntries ensures proper StartupWMClass for waybar window matching
+  xdg.desktopEntries = {
+    "brave-browser" = {
+      name = "Brave";
+      genericName = "Web Browser";
+      exec = "${braveWithFlags}/bin/brave %U";
+      icon = "brave-browser";
+      terminal = false;
+      categories = [ "Network" "WebBrowser" ];
+    };
+    "brave-youtube" = {
+      name = "YouTube";
+      genericName = "Video Streaming";
+      exec = "${braveWithFlags}/bin/brave --app=https://www.youtube.com";
+      icon = "youtube";
+      terminal = false;
+      categories = [ "Network" "Video" ];
+      startupWMClass = "brave-www.youtube.com__-Default";
+    };
+    "brave-twitch" = {
+      name = "Twitch";
+      genericName = "Video Streaming";
+      exec = "${braveWithFlags}/bin/brave --app=https://www.twitch.tv";
+      icon = "gnome-twitch";
+      terminal = false;
+      categories = [ "Network" "Video" ];
+      startupWMClass = "brave-www.twitch.tv__-Default";
+    };
+  };
 
   # Disable KWallet integration - Brave will use its own password storage instead
   # This prevents the "kde.kwallet is not installed" error

@@ -56,7 +56,7 @@
       # Actions
       "SUPER, SPACE, exec, vicinae toggle"                                # Launch appLauncher vicinae (Super + Space)
       "SUPER, Return, exec, foot"                                                               # Launch terminal (Super + ENTER)
-      "SUPER, B, exec, firefox"                                                                 # Launch browser (Super + B)
+      "SUPER, B, exec, brave"                                                                 # Launch browser (Super + B)
       "SUPER, E, exec, dolphin"                                                                # Launch file manager (Super + E)
       "SUPER, V, exec, vicinae vicinae://extensions/vicinae/clipboard/history"  # Open clipboard manager
 

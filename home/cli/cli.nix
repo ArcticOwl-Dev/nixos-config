@@ -11,6 +11,10 @@ in
     curlFull
     wget
     nixfmt-rfc-style
+    jq                                          # json processor
+    pactl                                       # audio control
+    brightnessctl                               # brightness control
+
   ];
 
   programs.fish = {

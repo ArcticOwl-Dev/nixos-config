@@ -29,6 +29,15 @@
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
+  # Set default applications for MIME types
+  xdg.mimeApps.defaultApplications = {
+    # Web browser
+    "text/html" = "brave-browser.desktop";
+    "text/xml" = "brave-browser.desktop";
+    "application/xhtml+xml" = "brave-browser.desktop";
+    "x-scheme-handler/http" = "brave-browser.desktop";
+    "x-scheme-handler/https" = "brave-browser.desktop";
+  };
 
   home.stateVersion = "25.11";
 }

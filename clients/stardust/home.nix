@@ -11,7 +11,7 @@
     ../../home/desktop/hyprland/hyprland.nix
     ../../home/desktop/wlogout.nix
     ../../home/desktop/hyprlock.nix
-    ../../home/desktop/waybar
+    ../../home/desktop/waybar/waybar.nix
     
     ../../home/appLauncher/walker.nix
     ../../home/appLauncher/vicinae.nix

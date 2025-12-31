@@ -8,6 +8,7 @@ in
   home.packages = with pkgs; [
     papirus-icon-theme
     hicolor-icon-theme
+    puvacontrol
   ];
 
   # Configure GTK icon theme for waybar to display application icons
@@ -32,18 +33,15 @@ in
   # XDG_DATA_DIRS is needed to find desktop entries for window matching
   systemd.user.services.waybar.Service.Environment = [
         "GTK_ICON_THEME=Papirus-Dark"
-        "XDG_DATA_DIRS=${config.home.profileDirectory}/share:/run/current-system/sw/share"
+        "XDG_DATA_DIRS=${config.home.profileDirectory}/share:/run/current-system/sw/share:${config.home.homeDirectory}/.local/share"
       ];
 
   # Force overwrite existing waybar config files
   # This ensures Home Manager overwrites existing files instead of failing
+  # Note: style.css is handled by programs.waybar.style, so we don't need to set it manually
   xdg.configFile."waybar/config" = {
     force = true;
     text = builtins.readFile waybarConfigPath;
-  };
-  xdg.configFile."waybar/style.css" = {
-    force = true;
-    source = waybarStylePath;
   };
 
   # Create waybar toggle script

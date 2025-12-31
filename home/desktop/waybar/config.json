@@ -18,13 +18,15 @@
     "hyprland/workspaces"
   ],
   "modules-right": [
+    "tray",
     "pulseaudio",
+    "backlight",
     "network",
     "cpu",
     "memory",
-    "temperature",
+    "custom/temperature",
     "clock",
-    "tray"
+    "custom/wlogoff"
   ],
   "hyprland/workspaces": {
     "format": "{icon}: {windows}",
@@ -73,6 +75,10 @@
       "warning": 30
     }
   },
+  "custom/wlogoff": {
+    "format": "",
+    "on-click": "wlogout"
+  },
   "clock": {
     "format-alt": "{:%Y-%m-%d}",
     "tooltip-format": "{:%Y-%m-%d | %H:%M}"
@@ -85,34 +91,34 @@
     "format": "{}% "
   },
   "network": {
-    "interval": 1,
-    "format-alt": "{ifname}: {ipaddr}/{cidr}",
-    "format-disconnected": "Disconnected ⚠",
-    "format-ethernet": "{ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}",
-    "format-linked": "{ifname} (No IP) ",
-    "format-wifi": "{essid} ({signalStrength}%) "
+    "format-wifi": "<span color='#00FFFF'> 󰤨 </span>{essid} ",
+    "format-ethernet": "<span color='#7FFF00'> </span>Wired ",
+    "tooltip-format": "<span color='#FF1493'> 󰅧 </span>{bandwidthUpBytes}  <span color='#00BFFF'> 󰅢 </span>{bandwidthDownBytes}",
+    "format-linked": "<span color='#FFA500'> 󱘖 </span>{ifname} (No IP) ",
+    "format-disconnected": "<span color='#FF4040'>  </span>Disconnected ",
+    "format-alt": "<span color='#00FFFF'> 󰤨 </span>{signalStrength}% ",
+    "interval": 1
   },
   "pulseaudio": {
-    "format": "{volume}% {icon} {format_source}",
-    "format-bluetooth": "{volume}% {icon} {format_source}",
-    "format-bluetooth-muted": " {icon} {format_source}",
+    "format": "<span color='#00FF7F'>{icon}</span>{volume}% ",
+    "format-muted": "<span color='#FF4040'> 󰖁 </span>0% ",
     "format-icons": {
-      "car": "",
+      "headphone": "<span color='#BF00FF'>  </span>",
+      "hands-free": "<span color='#BF00FF'>  </span>",
+      "headset": "<span color='#BF00FF'>  </span>",
+      "phone": "<span color='#00FFFF'>  </span>",
+      "portable": "<span color='#00FFFF'>  </span>",
+      "car": "<span color='#FFA500'>  </span>",
       "default": [
-        "",
-        "",
-        ""
-      ],
-      "handsfree": "",
-      "headphones": "",
-      "headset": "",
-      "phone": "",
-      "portable": ""
+        "<span color='#808080'>  </span>",
+        "<span color='#FFFF66'>  </span>",
+        "<span color='#00FF7F'>  </span>"
+      ]
     },
-    "format-muted": " {format_source}",
-    "format-source": "{volume}% ",
-    "format-source-muted": "",
-    "on-click": "pavucontrol"
+    "on-click-right": "pavucontrol -t 3",
+    "on-click": "pactl -- set-sink-mute 0 toggle",
+    "tooltip": true,
+    "tooltip-format": "当前系统声音: {volume}%"
   },
   "sway/mode": {
     "format": "<span style=\"italic\">{}</span>"
