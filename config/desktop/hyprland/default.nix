@@ -1,12 +1,13 @@
 # Hyprland desktop configuration module
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 {
 
   programs.hyprland = {
     enable = true;                                        # enable Hyprland
     withUWSM = true;                                      # enable Universal Wayland Session Manager
     xwayland.enable = true;                               # enable Xwayland (for x11 apps in wayland)
-    portalPackage = pkgs.xdg-desktop-portal-hyprland;     # xdph none git
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;     # xdph none git
   };
 
   programs = {
@@ -32,6 +33,11 @@
 
 
 
+
+  # XDG Desktop Portal for KDE apps (in addition to Hyprland portal)
+  xdg.portal = {
+    extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+  };
 
   environment.systemPackages = with pkgs; [
     # System-wide packages (needed for system services or multiple users)

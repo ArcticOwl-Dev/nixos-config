@@ -13,10 +13,11 @@
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # walker
-    elephant.url = "github:abenz1267/elephant";
-    walker.url = "github:abenz1267/walker";
-    walker.inputs.elephant.follows = "elephant";
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.inputs.nixpkgs.follows = "nixpkgs";
+
+    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
+    hyprland-plugins.inputs.hyprland.follows = "hyprland";
 
     # vicinae
     vicinae.url = "github:vicinaehq/vicinae";
@@ -32,7 +33,7 @@
     dms ={
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
-    }
+    };
 
   };
 
@@ -40,7 +41,9 @@
     self,
     nixpkgs,
     home-manager,
+    hyprland,
     grub2-themes,
+    hyprland-plugins,
     ...
   } @ inputs: let
     # Supported systems for your flake packages, shell, etc.
@@ -62,6 +65,7 @@
           ./clients/snowfire/configuration.nix
 
           grub2-themes.nixosModules.default
+
           # home-manager
           home-manager.nixosModules.home-manager
           {

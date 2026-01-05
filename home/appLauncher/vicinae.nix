@@ -14,6 +14,8 @@ in
             autoStart = true; # default: false
             environment = {
                 USE_LAYER_SHELL = "1";
+                # XDG_DATA_DIRS needed for vicinae to find desktop files (like nemo.desktop)
+                XDG_DATA_DIRS = "${config.home.profileDirectory}/share:/run/current-system/sw/share:${config.home.homeDirectory}/.local/share";
             };
         };
         settings = {
@@ -80,5 +82,10 @@ in
                 # Extension names can be found in the link below, it's just the folder names
             ];
     };
+
+  # Ensure vicinae can find desktop files by setting XDG_DATA_DIRS in systemd service
+  systemd.user.services.vicinae.Service.Environment = [
+    "XDG_DATA_DIRS=${config.home.profileDirectory}/share:/run/current-system/sw/share:${config.home.homeDirectory}/.local/share"
+  ];
 
 }

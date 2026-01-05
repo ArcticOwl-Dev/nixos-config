@@ -12,9 +12,8 @@ in
     wget
     nixfmt-rfc-style
     jq                                          # json processor
-    pactl                                       # audio control
     brightnessctl                               # brightness control
-
+    nh                                          # nix helper (for garbage collection)
   ];
 
   programs.fish = {

@@ -24,6 +24,31 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
+  # Additional SSDs
+  fileSystems."/mnt/documents" =
+    { device = "/dev/disk/by-uuid/84DA39F2DA39E0DA";
+      fsType = "ntfs";
+      options = [ "rw" "uid=1000" "gid=100" "umask=022" ];  # uid=1000 is r00t user, gid=100 is users group
+    };
+
+  fileSystems."/mnt/steam" =
+    { device = "/dev/disk/by-uuid/30D44061D4402B82";
+      fsType = "ntfs";
+      options = [ "rw" "uid=1000" "gid=100" "umask=022" ];
+    };
+
+  fileSystems."/mnt/storage" =
+    { device = "/dev/disk/by-uuid/86D21E7BD21E7023";
+      fsType = "ntfs";
+      options = [ "rw" "uid=1000" "gid=100" "umask=022" ];
+    };
+
+  fileSystems."/mnt/data" =
+    { device = "/dev/disk/by-uuid/CADA2361DA2348D1";
+      fsType = "ntfs";
+      options = [ "rw" "uid=1000" "gid=100" "umask=022" ];
+    };
+
   swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

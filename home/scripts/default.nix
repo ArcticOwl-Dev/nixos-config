@@ -20,6 +20,24 @@ in
     executable = true;
   };
 
+  # nix-backup-generations: Manage NixOS generations - mark backups and clean up
+  home.file."${scriptsDir}/nix-backup-generations" = {
+    source = ./nix-backup-generations.sh;
+    executable = true;
+  };
+
+  # check-gamescope: Check if gamescope is running and which games are using it
+  home.file."${scriptsDir}/check-gamescope" = {
+    source = ./check-gamescope.sh;
+    executable = true;
+  };
+
+  # launch-game-gamescope: Launch a game with gamescope wrapper
+  home.file."${scriptsDir}/launch-game-gamescope" = {
+    source = ./launch-game-gamescope.sh;
+    executable = true;
+  };
+
 
   # Example: If you have a script file in this directory, reference it like this:
   # home.file."${scriptsDir}/my-script.sh" = {

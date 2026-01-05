@@ -8,7 +8,7 @@ in
   home.packages = with pkgs; [
     papirus-icon-theme
     hicolor-icon-theme
-    puvacontrol
+    pavucontrol
   ];
 
   # Configure GTK icon theme for waybar to display application icons

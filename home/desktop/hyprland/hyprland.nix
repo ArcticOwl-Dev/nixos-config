@@ -1,5 +1,5 @@
 # Hyprland desktop configuration module
-{ config, lib, pkgs, style, ... }:
+{ config, lib, pkgs, style, inputs, ... }:
 let
   nerdFont = style.nerdFont;
 in
@@ -11,10 +11,8 @@ in
 
   home.packages = with pkgs; [  
     bibata-cursors          # Cursor theme
-    adwaita-icon-theme      # Icon theme for applications (used by waybar wlr/taskbar)
     papirus-icon-theme      # Additional icon theme with more application icons (YouTube, Twitch, etc.)
     hicolor-icon-theme      # Fallback icon theme (contains Brave icon)
-    nwg-dock-hyprland      # Dock for applications (used by waybar wlr/taskbar)
     ];
   
   # Configure foot terminal (simpler, more reliable on Wayland)
@@ -28,21 +26,12 @@ in
     };
   };
 
-  # Configure satty (screenshot tool)
-  programs.satty = {
-    enable = true;
-    settings = {
-      general = {
-        fullscreen = true;
-        corner-roundness = 12;
-        initial-tool = "brush";
-        output-filename = "/tmp/test-%Y-%m-%d_%H:%M:%S.png";
-      };
-      color-palette = {
-        palette = [ "#00ffff" "#a52a2a" "#dc143c" "#ff1493" "#ffd700" "#008000" ];
-      };
-    };
-  };
+  wayland.windowManager.hyprland.plugins = [
+    pkgs.hyprlandPlugins.hyprscrolling
+  ];
+
+
+
 
   # Enable Hyprland Policykit Agent
   services.hyprpolkitagent.enable = true;
@@ -65,16 +54,23 @@ in
         sensitivity = 0;
       };
       
+      cursor = {
+        # Disable hardware cursors to prevent CPU rendering fallback during window movement
+        no_hardware_cursors = true;
+      };
+      
       general = {
         gaps_in = 3;
         gaps_out = 5;
         border_size = 2;
         "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
-        layout = "dwindle";
+        layout = "scrolling";
         resize_on_border = true;
         extend_border_grab_area = 10;
         hover_icon_on_border = true;
+        # Enable experimental tearing support for better performance (may cause visual artifacts)
+        allow_tearing = true;
 
         snap = {
           enabled = true;
@@ -93,6 +89,12 @@ in
           passes = 1;
         };
 
+      };
+      
+      render = {
+        # Enable new render scheduling for better performance (experimental)
+        # Disabled temporarily to test if it's causing the CPU rendering issue
+        # new_render_scheduling = true;
       };
       
       animations = {
@@ -117,13 +119,38 @@ in
       
       misc = {
         force_default_wallpaper = -1;
+        disable_hyprland_logo = true;
+        disable_splash_rendering = true;
+        # Performance optimizations
+        vfr = true;  # Variable frame rate
+        vrr = 2;  # Variable refresh rate (0=off, 1=on, 2=fullscreen only)
       };
 
-      # Window rules for better performance with video apps
+      # Window rules for better performance with video apps and games
       windowrulev2 = [
         # Optimize YouTube/Twitch app windows - disable animations and blur for better video performance
         "noanim,class:^(brave-.*)$"
         "noblur,class:^(brave-.*)$"
+        
+        # Optimize Steam and games - disable animations, blur, and enable performance optimizations
+        "noanim,class:^(steam)$"
+        "noblur,class:^(steam)$"
+        "noanim,class:^(steam_app_.*)$"
+        "noblur,class:^(steam_app_.*)$"
+        "immediate,class:^(steam_app_.*)$"  # Immediate rendering for games
+        "float,class:^(steam_app_.*)$"  # Keep games floating for better performance
+        "opaque,class:^(steam_app_.*)$"  # Disable transparency for better performance
+        "noborder,class:^(steam_app_.*)$"  # Remove borders for better performance
+        "suppressevent maximize,class:^(steam_app_.*)$"  # Suppress maximize events for games
+        "suppressevent fullscreen,class:^(steam_app_.*)$"  # Suppress fullscreen events
+        
+        # Optimize gamescope (Steam's compositor)
+        "noanim,class:^(gamescope)$"
+        "noblur,class:^(gamescope)$"
+        "immediate,class:^(gamescope)$"
+        "float,class:^(gamescope)$"  # Keep gamescope floating
+        "opaque,class:^(gamescope)$"  # Disable transparency
+        "noborder,class:^(gamescope)$"  # Remove borders
       ];
 
     };
@@ -150,14 +177,24 @@ in
     # Ensure Wayland is the default
     GDK_BACKEND = "wayland";
     QT_QPA_PLATFORM = "wayland";
-    # Papirus has more application icons including YouTube, Twitch, etc.
+    # Qt/KDE theming - use KDE platform theme with Breeze dark
+    QT_QPA_PLATFORMTHEME = "kde";
+    QT_STYLE_OVERRIDE = "breeze";
+    # Setting Global Icon Theme for GTK, Qt Apps
     GTK_ICON_THEME = "Papirus-Dark";
+    QS_ICON_THEME = "Papirus-Dark";
     # Set default browser for terminal/CLI tools
     BROWSER = "brave";
     # Set desktop environment to prevent KDE/KWallet detection
     XDG_CURRENT_DESKTOP = "Hyprland";
     # Disable layer shell for vicinae (prevents closing when clicking outside)
     USE_LAYER_SHELL = "0";
+    # Force GPU acceleration for XWayland applications (prevents CPU fallback)
+    LIBGL_ALWAYS_SOFTWARE = "0";  # Force hardware acceleration
+    __GLX_VENDOR_LIBRARY_NAME = "mesa";  # Use Mesa for OpenGL
+    GALLIUM_DRIVER = "radeonsi";  # Use AMD GPU driver
+    # Disable hardware cursors to prevent rendering issues during window movement
+    WLR_NO_HARDWARE_CURSORS = "1";
   };
   
   # Set hyprcursor theme on Hyprland startup
@@ -171,5 +208,17 @@ in
 
     # Start hyprpolkitagent service on Hyprland startup
     exec-once = systemctl --user start hyprpolkitagent
+    
+    # Workaround for XWayland window movement CPU rendering issue
+    # Force immediate rendering for all XWayland windows to prevent CPU fallback
+    windowrulev2 = immediate, xwayland:1
+    
+    # Hyprscrolling plugin configuration
+    plugin {
+      hyprscrolling {
+        column_width = 0.33
+        fullscreen_on_one_column = false
+      }
+    }
   '';
 }

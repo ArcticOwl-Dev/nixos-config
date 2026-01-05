@@ -74,7 +74,11 @@ in
         Restart = "on-failure";
         RestartSec = "5s";
       } // lib.optionalAttrs (cfg.keymap != null) {
-        Environment = "REMOTE_TOUCHPAD_UINPUT_KEYMAP=${cfg.keymap}";
+        # Add kbd package to PATH for loadkeys command (needed when keymap is set)
+        Environment = [
+          "REMOTE_TOUCHPAD_UINPUT_KEYMAP=${cfg.keymap}"
+          "PATH=${pkgs.kbd}/bin:${pkgs.coreutils}/bin:/usr/bin:/bin"
+        ];
       };
     };
 
