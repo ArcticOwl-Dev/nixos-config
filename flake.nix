@@ -3,14 +3,10 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    # You can access packages and modules from different nixpkgs revs
-    # at the same time. Here's an working example:
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland.url = "github:hyprwm/Hyprland";
@@ -35,6 +31,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    winapps = {
+      url = "github:winapps-org/winapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = {
@@ -44,6 +51,8 @@
     hyprland,
     grub2-themes,
     hyprland-plugins,
+    plasma-manager,
+    winapps,
     ...
   } @ inputs: let
     # Supported systems for your flake packages, shell, etc.
@@ -51,7 +60,7 @@
 
   in {
     packages = import ./pkgs nixpkgs.legacyPackages.${system};
-    formatter = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
+    formatter = nixpkgs.legacyPackages.${system}.nixfmt;
 
     overlays = import ./overlays {inherit inputs;};
  
@@ -72,6 +81,9 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
+            home-manager.sharedModules = [
+              plasma-manager.homeModules.plasma-manager
+            ];
 
             home-manager.users.r00t = import ./clients/snowfire/home.nix;
 

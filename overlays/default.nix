@@ -1,15 +1,19 @@
 # This file defines overlays
 {inputs, ...}: {
   # This one brings our custom packages from the 'pkgs' directory
-  additions = final: _prev: import ../pkgs final.pkgs;
+  additions = final: _prev: import ../pkgs final;
 
-  # This one contains whatever you want to overlay
-  # You can change versions, add patches, set compilation flags, anything really.
-  # https://nixos.wiki/wiki/Overlays
+  # Apply patches to nixpkgs packages (see readme.md).
   modifications = final: prev: {
-    # example = prev.example.overrideAttrs (oldAttrs: rec {
-    # ...
-    # });
+    # Use your fork of sddm-astronaut-theme; same install as nixpkgs (no patches).
+    sddm-astronaut = prev.sddm-astronaut.overrideAttrs (old: {
+      src = prev.fetchFromGitHub {
+        owner = "ArcticOwl-Dev";
+        repo = "sddm-astronaut-theme";
+        rev = "c66df3084f1a2bb70bd76f6c64f2d24e57d169ab";
+        hash = "sha256-0fTOjlWlnszuhErEsGBE6n0+vokI7fYPn8R2w47ZnXo=";
+      };
+    });
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

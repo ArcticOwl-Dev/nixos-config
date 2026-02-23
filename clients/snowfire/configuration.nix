@@ -3,15 +3,37 @@
 {
   imports = [
      ./hardware-configuration.nix
-     ../../config/desktop/hyprland
+     ../../config/desktop/plasma
      ../../config/sound/default.nix
      ../../config/i18n/default.nix
      ../../config/remote-touchpad/remote-touchpad.nix
+     ../../config/virtualisation/winapps-vm.nix
 
      ../../config/games/steam.nix
   ];
 
   networking.hostName = "snowfire";
+
+  # Libvirt + virt-manager - for WinApps (Windows VM backend)
+  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd.qemu.vhostUserPackages = [ pkgs.virtiofsd ];  # Required for virtio-fs shared folders
+  programs.virt-manager.enable = true;
+  environment.systemPackages = [ pkgs.virt-manager ];
+
+
+  # WinApps Windows VM - declarative libvirt domain
+  # Download Windows ISO and VirtIO ISO, then set paths:
+  #   Windows: https://www.microsoft.com/software-download
+  #   VirtIO:  https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso
+  virtualisation.winappsVm = {
+    enable = true;
+    vmName = "RDPWindows";
+    memory = 4096;
+    vcpus = 4;
+    diskSizeG = 64;
+    windowsIso = "/tmp/tiny11_25H2_Nov25.iso";                  # EDIT: your path
+    virtioIso = "/tmp/virtio-win-0.1.285.iso";                  # EDIT: your path
+  };
 
 
 
@@ -28,10 +50,13 @@
       # Be sure to change it (using passwd) after rebooting!
       initialPassword = "123456";
       isNormalUser = true;
-      extraGroups = ["networkmanager" "wheel"];
+      extraGroups = ["networkmanager" "wheel" "libvirtd" "kvm"];
       # Note: "uinput" group is automatically added by services.unified-remote
     };
   };
+
+  users.users.r00t.shell = pkgs.fish;
+  programs.fish.enable = true;
 
   # GRUB2 Boot Loader Configuration (UEFI)
   boot.loader.systemd-boot.enable = false;  # Disable systemd-boot
@@ -39,23 +64,29 @@
     enable = true;
     device = "nodev";  # Use EFI variables instead of installing to a device
     efiSupport = true;
-    useOSProber = true;  # Enable OS prober to detect other OSes
+    useOSProber = false;  # Enable OS prober to detect other OSes
     # Manual Windows 10 entry (if os-prober doesn't detect it)
     # Windows is on /dev/nvme0n1p3 (UUID: CADA2361DA2348D1)
-    # Windows boot files should be in the EFI partition
+    # Note: If bootmgfw.efi is not found, Windows boot files might be on a different EFI partition
+    # or Windows might need to be booted directly from UEFI firmware
     extraEntries = ''
       menuentry "Windows 10" {
         insmod part_gpt
         insmod fat
         insmod search_fs_uuid
         insmod chain
+        # Try EFI partition first
         search --fs-uuid --set=root 9FFC-7BDD
+        # If bootmgfw.efi doesn't exist here, you may need to:
+        # 1. Check other EFI partitions (like sdd1)
+        # 2. Boot Windows directly from UEFI firmware (F12 or similar at boot)
+        # 3. Or manually copy Windows boot files to this EFI partition
         chainloader /EFI/Microsoft/Boot/bootmgfw.efi
       }
     '';
   };
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 3;
+  boot.loader.timeout = 10;
   
   # Ensure os-prober package is available for Windows detection
   boot.loader.grub.configurationLimit = 30;  # Keep more GRUB entries
@@ -64,7 +95,7 @@
   boot.plymouth = {
     enable = true;
     theme = "cuts";
-    themePackages = [ (pkgs.callPackage ../../pkgs/plymouth-theme-cuts { }) ];
+    themePackages = [ pkgs.local.plymouth-theme-cuts ];
   };
   # Quiet boot - hide startup messages, only show errors
   boot.kernelParams = [

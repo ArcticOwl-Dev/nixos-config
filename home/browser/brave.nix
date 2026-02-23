@@ -1,42 +1,29 @@
 # Brave browser configuration module
 { config, lib, pkgs, ... }:
-let
-  braveWithFlags = pkgs.writeShellScriptBin "brave" ''
-    export KDE_SESSION_VERSION=""
-    export KDE_FULL_SESSION=""
-    export XDG_CURRENT_DESKTOP="Hyprland"
-    export CHROMIUM_FLAGS="--password-store=basic"
-    exec ${pkgs.brave}/bin/brave \
-      --password-store=basic \
-      --enable-features=UseOzonePlatform \
-      --ozone-platform=wayland \
-      --enable-gpu \
-      --enable-gpu-rasterization \
-      --enable-zero-copy \
-      --use-gl=egl \
-      --enable-features=VaapiVideoDecoder \
-      --disable-gpu-vsync \
-      "$@"
-  '';
-  
-in
-{
-  # Install wrapped Brave that disables KWallet
-  # This wrapper handles all the necessary flags and environment variables
-  # braveWithFlags needs to be in packages so it's available in PATH
-  home.packages = [ braveWithFlags ];
 
-  # Create desktop entries for Brave browser
+{
+  home.packages = [ pkgs.brave ];
+
+  # Create desktop entries for both Brave variants
   xdg.desktopEntries = {
     "brave-browser" = {
       name = "Brave";
       genericName = "Web Browser";
-      exec = "${braveWithFlags}/bin/brave %U";
+      exec = "${pkgs.brave}/bin/brave --profile-directory=Default %U";
+      icon = "brave-browser";
+      terminal = false;
+      categories = [ "Network" "WebBrowser" ];
+    };
+    "brave-browser-stream" = {
+      name = "Brave Stream Profile";
+      genericName = "Web Browser";
+      exec = "${pkgs.brave}/bin/brave --profile-directory=\"Profile 2\" %U";
       icon = "brave-browser";
       terminal = false;
       categories = [ "Network" "WebBrowser" ];
     };
   };
+
 
   # Add StartupWMClass to YouTube and Twitch desktop entries for waybar window matching
   # xdg.desktopEntries doesn't support startupWMClass, so we override them manually
@@ -48,7 +35,7 @@ in
       Type=Application
       Name=YouTube
       GenericName=Video Streaming
-      Exec=${braveWithFlags}/bin/brave --app=https://www.youtube.com
+      Exec=${pkgs.brave}/bin/brave --app=https://www.youtube.com
       Icon=youtube
       Terminal=false
       Categories=Network;Video
@@ -62,7 +49,7 @@ in
       Type=Application
       Name=Twitch
       GenericName=Video Streaming
-      Exec=${braveWithFlags}/bin/brave --app=https://www.twitch.tv
+      Exec=${pkgs.brave}/bin/brave --app=https://www.twitch.tv
       Icon=gnome-twitch
       Terminal=false
       Categories=Network;Video
@@ -79,8 +66,6 @@ in
     # This merges with other sessionVariables from other modules
     # Tell Chromium-based browsers to use basic password storage
     CHROMIUM_FLAGS = "--password-store=basic";
-    # Set desktop environment to prevent KDE detection
-    XDG_CURRENT_DESKTOP = "Hyprland";
   };
 }
 

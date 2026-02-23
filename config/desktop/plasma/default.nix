@@ -1,9 +1,53 @@
 # Plasma desktop configuration module
 { config, lib, pkgs, ... }:
-{
-  services = {
-    desktopManager.plasma6.enable = true;
-    displayManager.sddm.enable = true;
+
+let
+  # Wallpaper path as store path so SDDM greeter can load it at runtime
+  tf2Wallpaper = ../../../assets/wallpaper/tf2.png;
+  # Local theme (pkgs.local.sddm-astronaut) with black_hole + custom config
+  sddm-astronaut-black-hole = pkgs.local.sddm-astronaut.override {
+    embeddedTheme = "black_hole";
+    themeConfig = {
+      background = "${tf2Wallpaper}";
+      ScreenWidth = 5120;
+      ScreenHeight = 1440;
+      PartialBlur = true;
+      BlurMax = 48;
+      ScreenPadding = 0;
+      LoginFormWidth = 25;
+      PasswordFieldWidth = 350;
+      UsernameFieldWidth = 350;
+      LoginButtonWidth = 350;
+      UsernameFieldAlignment = "left";
+      PasswordFieldAlignment = "left";
+      DateFormat = "dddd d.MMM";
+      FormBackgroundColor = "#5A5A5A";
+    };
   };
-  services.displayManager.sddm.wayland.enable = true;
+in
+{
+  services.desktopManager.plasma6.enable = true;
+
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    theme = "sddm-astronaut-theme";
+
+    extraPackages = [
+      pkgs.kdePackages.qtmultimedia
+      pkgs.kdePackages.qtsvg
+      pkgs.kdePackages.qtvirtualkeyboard
+      sddm-astronaut-black-hole
+    ];
+  };
+
+  environment.plasma6.excludePackages = [
+    pkgs.kdePackages.konsole
+    pkgs.kdePackages.kate
+    pkgs.kdePackages.kwrited
+  ];
+
+  environment.systemPackages = with pkgs; [
+    sddm-astronaut-black-hole
+  ];
 }

@@ -63,14 +63,16 @@ in
     # Firewall configuration for Remote Touchpad
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
-    # Systemd user service for Remote Touchpad
-    systemd.user.services.remote-touchpad = mkIf cfg.autoStart {
+  # Systemd user service for Remote Touchpad
+  systemd.user.services.remote-touchpad = mkIf cfg.autoStart {
       description = "Remote Touchpad";
       wantedBy = [ "default.target" ];
+    restartIfChanged = true;
+    restartTriggers = [ pkgs.local.remote-touchpad ];
       serviceConfig = {
         ExecStart = let
           secretFlag = if cfg.secret != null then "-secret ${lib.escapeShellArg cfg.secret}" else "";
-        in "${pkgs.remote-touchpad}/bin/remote-touchpad -bind :${toString cfg.port} ${secretFlag}";
+        in "${pkgs.local.remote-touchpad}/bin/remote-touchpad -bind :${toString cfg.port} ${secretFlag}";
         Restart = "on-failure";
         RestartSec = "5s";
       } // lib.optionalAttrs (cfg.keymap != null) {
@@ -81,19 +83,6 @@ in
         ];
       };
     };
-
-    # Create a wrapper script that uses the configured port, keymap, and secret
-    # This ensures the port is always fixed, even when running manually
-    environment.systemPackages = [
-      (pkgs.writeShellScriptBin "remote-touchpad" ''
-        ${if cfg.keymap != null then "export REMOTE_TOUCHPAD_UINPUT_KEYMAP=${cfg.keymap}" else ""}
-        ${if cfg.secret != null then ''
-          exec ${pkgs.remote-touchpad}/bin/remote-touchpad -bind :${toString cfg.port} -secret "${lib.replaceStrings ["\"" "\\" "$" "`"] ["\\\"" "\\\\" "\\$" "\\`"] cfg.secret}" "$@"
-        '' else ''
-          exec ${pkgs.remote-touchpad}/bin/remote-touchpad -bind :${toString cfg.port} "$@"
-        ''}
-      '')
-    ];
   };
 }
 

@@ -49,6 +49,7 @@
 
       # Actions
       "SUPER, SPACE, Launch application launcher, exec, vicinae toggle"
+      "SUPER, R, Launch anyrun, exec, anyrun"
       "SUPER, Return, Launch terminal, exec, foot"
       "SUPER, B, Launch browser, exec, brave"
       "SUPER, E, Launch file manager, exec, nemo"

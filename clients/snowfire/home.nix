@@ -9,25 +9,26 @@
 
     ../../home/cli/cli.nix
     ../../home/cli/git.nix
+    ../../home/cli/foot.nix
+    ../../home/cli/kitty.nix
 
-    ../../home/desktop/hyprland/hyprland.nix
-    ../../home/desktop/wlogout.nix
-    ../../home/desktop/hyprlock.nix
-    ../../home/desktop/awww.nix
-    ../../home/desktop/dankLinux/dankLinuxBar.nix
-    ../../home/desktop/screenshot.nix
+    ../../home/cloudStorage/filen.nix
     
-    ../../home/fileManager/nemo.nix
-    
-    ../../home/appLauncher/vicinae.nix
+    ../../home/appLauncher/ulauncher.nix
 
     ../../home/office/pdfViewer-Okular.nix
-    ../../home/office/imageViewer-nomacs.nix
     ../../home/office/videoViewer-vlc.nix
     ../../home/office/office-onlyOffice.nix
     ../../home/office/email-thunderbird.nix
+    #../../home/office/office-linoffice.nix
+    ../../home/office/office-winapps.nix
 
-    #../../home/games/mangohud.nix
+    ../../home/desktop/plasma/plasmamanager.nix
+
+    ../../home/style/style.nix
+
+    ../../home/apps/torrentclient.nix
+
   ];
 
   home = {

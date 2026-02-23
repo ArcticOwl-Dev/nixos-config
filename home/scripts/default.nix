@@ -1,58 +1,26 @@
-# Scripts module - manages custom scripts and adds them to PATH
 { config, lib, pkgs, ... }:
 let
-  # Directory where scripts will be stored in home directory
+  # Scripts module - every file in home/scripts/ becomes an executable in ~/.local/bin 
+  # (same name, .sh stripped)
+  
   scriptsDir = ".local/bin";
+  scriptFiles = lib.filterAttrs
+    (name: type: type == "regular" && lib.hasSuffix ".sh" name && name != "default.nix")
+    (builtins.readDir ./.);
+  scriptNames = builtins.attrNames scriptFiles;
+  # Install as "nix-update" for "nix-update.sh"
+  toBinEntry = name: {
+    name = "${scriptsDir}/${lib.removeSuffix ".sh" name}";
+    value = {
+      source = ./. + "/${name}";
+      executable = true;
+    };
+  };
 in
 {
-  # Add scripts directory to PATH
   home.sessionVariables = {
     PATH = "$HOME/${scriptsDir}:$PATH";
   };
 
-  # Define your scripts here
-  # Place script files in this directory (home/scripts/) and reference them below
-  # Or define scripts directly using the pattern shown in the examples
-
-  # nix-mutable: Convert Nix-managed symlinks to mutable files
-  home.file."${scriptsDir}/nix-mutable" = {
-    source = ./nix-mutable.sh;
-    executable = true;
-  };
-
-  # nix-backup-generations: Manage NixOS generations - mark backups and clean up
-  home.file."${scriptsDir}/nix-backup-generations" = {
-    source = ./nix-backup-generations.sh;
-    executable = true;
-  };
-
-  # check-gamescope: Check if gamescope is running and which games are using it
-  home.file."${scriptsDir}/check-gamescope" = {
-    source = ./check-gamescope.sh;
-    executable = true;
-  };
-
-  # launch-game-gamescope: Launch a game with gamescope wrapper
-  home.file."${scriptsDir}/launch-game-gamescope" = {
-    source = ./launch-game-gamescope.sh;
-    executable = true;
-  };
-
-
-  # Example: If you have a script file in this directory, reference it like this:
-  # home.file."${scriptsDir}/my-script.sh" = {
-  #   source = ./my-script.sh;
-  #   executable = true;
-  # };
-
-  # Example: Define a script directly in Nix:
-  # home.file."${scriptsDir}/my-script.sh" = {
-  #   executable = true;
-  #   text = ''
-  #     #!/usr/bin/env bash
-  #     # Your script content here
-  #     echo "Hello from my script!"
-  #   '';
-  # };
+  home.file = lib.listToAttrs (map toBinEntry scriptNames);
 }
-

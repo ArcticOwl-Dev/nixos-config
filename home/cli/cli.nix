@@ -7,10 +7,8 @@ in
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     nerd-fonts.noto
-    nerd-fonts.profont
     curlFull
     wget
-    nixfmt-rfc-style
     jq                                          # json processor
     brightnessctl                               # brightness control
     nh                                          # nix helper (for garbage collection)
@@ -19,7 +17,39 @@ in
   programs.fish = {
     enable = true;                              # fish (shell)
     generateCompletions = true;
+    interactiveShellInit = ''
+      set -g fish_greeting # remove fish greeting
+    '';
+    # cd then ls (eza if fish integration is on)
+    functions = {
+      cd = ''
+        builtin cd $argv
+        and ls
+      '';
+      # Re-apply Nix/home-manager env in current shell (run after nix-rebuild switch / home-manager switch)
+      nix-refresh-env = ''
+        if test -f ~/.nix-profile/etc/profile.d/hm-session-vars.fish
+          source ~/.nix-profile/etc/profile.d/hm-session-vars.fish
+          echo "nix-refresh-env: session vars reloaded from current profile."
+        else
+          echo "nix-refresh-env: ~/.nix-profile/etc/profile.d/hm-session-vars.fish not found."
+        end
+        # Ensure profile bin is on PATH so new symlinked binaries are visible
+        set -l profile_bin "$HOME/.nix-profile/bin"
+        if test -d "$profile_bin"
+          set -l path_copy $PATH
+          set -e PATH
+          set -gx PATH "$profile_bin"
+          for p in $path_copy
+            if test "$p" != "$profile_bin"
+              set -gx PATH $PATH $p
+            end
+          end
+        end
+      '';
+    };
   };
+
   programs.eza = {                                          # eza (file explorer)
     enable = true;
     enableFishIntegration = true;
@@ -27,6 +57,7 @@ in
     colors = "auto";
     extraOptions = [
       "--group-directories-first"
+      "--hyperlink"
     ];
   };
   programs.micro.enable = true;                             # micro (text editor)
@@ -38,6 +69,7 @@ in
       line_width = 120;
       line_width_chars = 120;
     };
+    clipboard = "external";
   };
 
   programs.fastfetch.enable = true;                         # fastfetch (system information)

@@ -35,7 +35,7 @@ in
       ];
   };
 
-  # Nixpkgs configuration (inline, not a separate module)
+  # Adds .overlays edited packages to the nixpkgs set 
   nixpkgs = {
     overlays = [
       inputs.self.overlays.additions
