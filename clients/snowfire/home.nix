@@ -13,8 +13,10 @@
     ../../home/cli/kitty.nix
 
     ../../home/cloudStorage/filen.nix
-    
+    ../../home/vpn/tailscale-systray.nix
+
     ../../home/appLauncher/ulauncher.nix
+    ../../home/appLauncher/walker.nix
 
     ../../home/office/pdfViewer-Okular.nix
     ../../home/office/videoViewer-vlc.nix

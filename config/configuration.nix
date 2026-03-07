@@ -50,6 +50,8 @@ in
   # Enable networking
   networking.networkmanager.enable = true;
 
+  environment.systemPackages = [ pkgs.nixfmt ];
+
   system.stateVersion = "25.11";
 }
 

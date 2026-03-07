@@ -3,5 +3,6 @@
 {
   environment.systemPackages = [
     pkgs.code-cursor
+    pkgs.nixd
   ];
 }

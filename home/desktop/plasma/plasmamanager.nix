@@ -1,5 +1,18 @@
 { config, lib, pkgs, ... }:
 {
+  # Desktop entry for Walker global shortcut (Meta+Space) - sends to walker socket
+  xdg.dataFile."applications/walker-launch.desktop" = {
+    text = ''
+      [Desktop Entry]
+      Exec=sh -c 'nc -U "''${XDG_RUNTIME_DIR:-/run/user/1000}/walker/walker.sock"'
+      Name=Walker
+      NoDisplay=true
+      StartupNotify=false
+      Type=Application
+      X-KDE-GlobalAccel-CommandShortcut=true
+    '';
+  };
+
   programs.plasma = {
     enable = true;
 
@@ -312,7 +325,8 @@
       plasmashell."toggle do not disturb" = [ ];
       "services/kitty.desktop"._launch = "Meta+Return";
       "services/org.kde.plasma-systemmonitor.desktop"._launch = ["Ctrl+Shift+Esc" "Meta+Esc"];
-      "services/ulauncher.desktop"._launch = "Meta+Space";
+      "services/ulauncher.desktop"._launch = [ ];
+      "services/walker-launch.desktop"._launch = "Meta+Space";
     };
 
     # ==========================================================================
@@ -409,7 +423,7 @@
       kwinrc.Script-kzones."[Tiling][01b8814f-f3dc-4938-b9e6-0b8d03838314][]" = "";
       kwinrc.Script-kzones.edgeSnappingTriggerDistance = 0;
       kwinrc.Script-kzones.enableEdgeSnapping = true;
-      kwinrc.Script-kzones.layoutsJson = "[\n    {\n        \"name\": \"2x Prio + Video\",\n        \"padding\": 0,\n        \"zones\": [\n            {\n                \"x\": 0,\n                \"y\": 0,\n                \"height\": 100,\n                \"width\": 40\n            },\n            {\n                \"x\": 40,\n                \"y\": 0,\n                \"height\": 100,\n                \"width\": 40\n            },\n            {\n                \"x\": 80,\n                \"y\": 0,\n                \"height\": 100,\n                \"width\": 20\n            }\n        ]\n    },\n    {\n        \"name\": \"Quadrant Grid\",\n        \"zones\": [\n            {\n                \"x\": 0,\n                \"y\": 0,\n                \"height\": 50,\n                \"width\": 50\n            },\n            {\n                \"x\": 0,\n                \"y\": 50,\n                \"height\": 50,\n                \"width\": 50\n            },\n            {\n                \"x\": 50,\n                \"y\": 50,\n                \"height\": 50,\n                \"width\": 50\n            },\n            {\n                \"x\": 50,\n                \"y\": 0,\n                \"height\": 50,\n                \"width\": 50\n            }\n        ]\n    }\n]";
+      kwinrc.Script-kzones.layoutsJson = "[\n    {\n        \"name\": \"2x Prio + Video\",\n        \"padding\": 0,\n        \"zones\": [\n            {\n                \"x\": 0,\n                \"y\": 0,\n                \"height\": 100,\n                \"width\": 39.5\n            },\n            {\n                \"x\": 39.5,\n                \"y\": 0,\n                \"height\": 100,\n                \"width\": 39.75\n            },\n            {\n                \"x\": 79.25,\n                \"y\": 0,\n                \"height\": 100,\n                \"width\": 20.75\n            }\n        ]\n    },\n    {\n        \"name\": \"Quadrant Grid\",\n        \"zones\": [\n            {\n                \"x\": 0,\n                \"y\": 0,\n                \"height\": 50,\n                \"width\": 50\n            },\n            {\n                \"x\": 0,\n                \"y\": 50,\n                \"height\": 50,\n                \"width\": 50\n            },\n            {\n                \"x\": 50,\n                \"y\": 50,\n                \"height\": 50,\n                \"width\": 50\n            },\n            {\n                \"x\": 50,\n                \"y\": 0,\n                \"height\": 50,\n                \"width\": 50\n            }\n        ]\n    }\n]";
       kwinrc.Script-kzones.tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
       kwinrc."Tiling/01b8814f-f3dc-4938-b9e6-0b8d03838314/9868fbee-cb47-41a1-9cf5-b2dd74a6ffdc"."[Tiling][ce07d945-d687-47d5-aa6c-24589e83f5ca][]" = "";
       kwinrc."Tiling/01b8814f-f3dc-4938-b9e6-0b8d03838314/9868fbee-cb47-41a1-9cf5-b2dd74a6ffdc".padding = 4;

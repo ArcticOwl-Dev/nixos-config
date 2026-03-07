@@ -1,4 +1,4 @@
-# Plasma desktop configuration module
+# SDDM display manager theming
 { config, lib, pkgs, ... }:
 
 let
@@ -26,8 +26,6 @@ let
   };
 in
 {
-  services.desktopManager.plasma6.enable = true;
-
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
@@ -41,13 +39,7 @@ in
     ];
   };
 
-  environment.plasma6.excludePackages = [
-    pkgs.kdePackages.konsole
-    pkgs.kdePackages.kate
-    pkgs.kdePackages.kwrited
-  ];
-
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     sddm-astronaut-black-hole
   ];
 }

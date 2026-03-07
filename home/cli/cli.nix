@@ -11,7 +11,7 @@ in
     wget
     jq                                          # json processor
     brightnessctl                               # brightness control
-    nh                                          # nix helper (for garbage collection)
+    nh                                          # nix helper 
   ];
 
   programs.fish = {
