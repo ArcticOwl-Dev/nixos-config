@@ -13,9 +13,12 @@
   ];
 
   xdg.portal = {
-  enable = true;
-  extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.kdePackages.xdg-desktop-portal-kde ];
-  config.common.default = [ "kde" ]; # Force KDE as primary
-  config.walker.default = [ "gtk" ]; # Force GTK for Walker specifically
-};
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = [ 
+      pkgs.xdg-desktop-portal-gtk 
+      pkgs.kdePackages.xdg-desktop-portal-kde 
+    ];
+    config.common.default = "kde"; # Force KDE as primary
+  };
 }

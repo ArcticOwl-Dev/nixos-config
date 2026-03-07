@@ -15,16 +15,6 @@
   networking.hostName = "snowfire";
 
   # =============================================================================
-  # Environment variables (system-wide for this machine)
-  # =============================================================================
-  environment.variables = {
-    # Example:
-    # EDITOR = "nvim";
-    # Use $HOME or literal path so it expands; ~ is stored literally and may not expand
-    NH_OS_FLAKE = "/home/r00t/nixos-config";
-  };
-
-  # =============================================================================
   # Firewall, Printing, Fonts
   # =============================================================================
   networking.firewall.enable = true;
@@ -51,7 +41,10 @@
       shell = pkgs.fish;
     };
   };
-  programs.fish.enable = true;
+  programs.fish.enable = true;  
+  security.sudo.extraConfig = ''
+    Defaults pwfeedback
+  '';
 
   # =============================================================================
   # Nix: Garbage Collection

@@ -325,8 +325,7 @@
       plasmashell."toggle do not disturb" = [ ];
       "services/kitty.desktop"._launch = "Meta+Return";
       "services/org.kde.plasma-systemmonitor.desktop"._launch = ["Ctrl+Shift+Esc" "Meta+Esc"];
-      "services/ulauncher.desktop"._launch = [ ];
-      "services/walker-launch.desktop"._launch = "Meta+Space";
+      "services/vicinae.desktop".open = "Meta+Space";
     };
 
     # ==========================================================================

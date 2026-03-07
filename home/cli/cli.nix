@@ -18,16 +18,38 @@ in
     enable = true;                              # fish (shell)
     generateCompletions = true;
     interactiveShellInit = ''
+      # syntax: bash
       set -g fish_greeting # remove fish greeting
+    '';
+    # Auto-reload fish when config was switched (home-manager or nixos-rebuild)
+    shellInit = ''
+      # syntax: bash
+      function __hm_reload_check --on-event fish_prompt
+        if not set -q _hm_reload_initialized
+          set -g _hm_reload_initialized 1
+          if test -f $HOME/.hm-reload-trigger
+            stat -c %Y $HOME/.hm-reload-trigger > $HOME/.hm-reload-seen 2>/dev/null || true
+          end
+        end
+        if test -f $HOME/.hm-reload-trigger && test -f $HOME/.hm-reload-seen
+          set -l trigger_mtime (stat -c %Y $HOME/.hm-reload-trigger 2>/dev/null)
+          set -l seen_mtime (cat $HOME/.hm-reload-seen 2>/dev/null)
+          if test -n "$trigger_mtime" && test -n "$seen_mtime" && test $trigger_mtime -gt $seen_mtime
+            exec fish
+          end
+        end
+      end
     '';
     # cd then ls (eza if fish integration is on)
     functions = {
       cd = ''
+        # syntax: bash
         builtin cd $argv
         and ls
       '';
       # Re-apply Nix/home-manager env in current shell (run after nix-rebuild switch / home-manager switch)
       nix-refresh-env = ''
+        # syntax: bash
         if test -f ~/.nix-profile/etc/profile.d/hm-session-vars.fish
           source ~/.nix-profile/etc/profile.d/hm-session-vars.fish
           echo "nix-refresh-env: session vars reloaded from current profile."

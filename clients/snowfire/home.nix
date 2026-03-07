@@ -6,6 +6,7 @@
 
     ../../home/browser/brave.nix
     ../../home/browser/firefox.nix
+    ../../home/browser/zen.nix
 
     ../../home/cli/cli.nix
     ../../home/cli/git.nix
@@ -15,8 +16,8 @@
     ../../home/cloudStorage/filen.nix
     ../../home/vpn/tailscale-systray.nix
 
-    ../../home/appLauncher/ulauncher.nix
-    ../../home/appLauncher/walker.nix
+    ../../home/appLauncher/vicinae.nix
+    #../../home/appLauncher/walker.nix
 
     ../../home/office/pdfViewer-Okular.nix
     ../../home/office/videoViewer-vlc.nix
@@ -33,10 +34,16 @@
 
   ];
 
-  home = {
-    username = "r00t";
-    homeDirectory = "/home/r00t";
+
+  # User environment variables (e.g. for nh, nix helper tools)
+  home.sessionVariables = {
+    NH_OS_FLAKE = "${config.home.homeDirectory}/nixos-config";
   };
+
+  # Touch trigger so fish can auto-reload on next prompt after switch
+  home.activation.reloadTrigger = inputs.home-manager.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    touch "$HOME/.hm-reload-trigger"
+  '';
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
