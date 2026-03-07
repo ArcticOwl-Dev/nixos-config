@@ -1,15 +1,27 @@
 # Brave browser configuration module
 { config, lib, pkgs, ... }:
 
-{
-  home.packages = [ pkgs.brave ];
+let
+  braveWithArgs = pkgs.brave.override {
+    commandLineArgs = [
+      "--password-store=basic"
+      "--enable-features=UseOzonePlatform"
+      "--ozone-platform=wayland"
+      "--disable-gpu-memory-buffer-video-frames" # Reduces those GLib errors in your logs
+      "--enable-features=OverlayScrollbar"        # Autohides scrollbars
+      "--enable-features=FluentOverlayScrollbars" # Autohides scrollbars
+    ];
+  };
+in {
 
-  # Create desktop entries for both Brave variants
+  home.packages = [ braveWithArgs ];
+
+  # Create desktop entries for both Brave variants (use overridden Brave so --password-store=basic etc. apply)
   xdg.desktopEntries = {
     "brave-browser" = {
       name = "Brave";
       genericName = "Web Browser";
-      exec = "${pkgs.brave}/bin/brave --profile-directory=Default %U";
+      exec = "${braveWithArgs}/bin/brave --profile-directory=Default %U";
       icon = "brave-browser";
       terminal = false;
       categories = [ "Network" "WebBrowser" ];
@@ -17,7 +29,7 @@
     "brave-browser-stream" = {
       name = "Brave Stream Profile";
       genericName = "Web Browser";
-      exec = "${pkgs.brave}/bin/brave --profile-directory=\"Profile 2\" %U";
+      exec = "${braveWithArgs}/bin/brave --profile-directory=\"Profile 2\" %U";
       icon = "brave-browser";
       terminal = false;
       categories = [ "Network" "WebBrowser" ];
@@ -35,7 +47,7 @@
       Type=Application
       Name=YouTube
       GenericName=Video Streaming
-      Exec=${pkgs.brave}/bin/brave --app=https://www.youtube.com
+      Exec=${braveWithArgs}/bin/brave --app=https://www.youtube.com
       Icon=youtube
       Terminal=false
       Categories=Network;Video
@@ -49,23 +61,12 @@
       Type=Application
       Name=Twitch
       GenericName=Video Streaming
-      Exec=${pkgs.brave}/bin/brave --app=https://www.twitch.tv
+      Exec=${braveWithArgs}/bin/brave --app=https://www.twitch.tv
       Icon=gnome-twitch
       Terminal=false
       Categories=Network;Video
       StartupWMClass=brave-www.twitch.tv__-Default
     '';
-  };
-
-  # Disable KWallet integration - Brave will use its own password storage instead
-  # This prevents the "kde.kwallet is not installed" error
-  # Since you're using Hyprland (not KDE), you don't need KWallet
-  # Brave will use its built-in password manager instead
-  home.sessionVariables = {
-    # Prevent Brave/Chromium from trying to use KWallet
-    # This merges with other sessionVariables from other modules
-    # Tell Chromium-based browsers to use basic password storage
-    CHROMIUM_FLAGS = "--password-store=basic";
   };
 }
 
