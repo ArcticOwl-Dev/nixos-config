@@ -9,12 +9,6 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
-
-    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
-    hyprland-plugins.inputs.hyprland.follows = "hyprland";
-
     # walker
     elephant.url = "github:abenz1267/elephant";
     walker.url = "github:abenz1267/walker";
@@ -30,20 +24,22 @@
     # grub2-themes
     grub2-themes.url = "github:vinceliuice/grub2-themes";
 
-    # Dank Linux taskbar
-    dms ={
-      url = "github:AvengeMedia/DankMaterialShell/stable";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    # plasma-manager
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
 
+    # winapps
     winapps = {
       url = "github:winapps-org/winapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Zen Browser
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -53,11 +49,10 @@
     self,
     nixpkgs,
     home-manager,
-    hyprland,
     grub2-themes,
-    hyprland-plugins,
     plasma-manager,
     winapps,
+    zen-browser,
     ...
   } @ inputs: let
     # Supported systems for your flake packages, shell, etc.
