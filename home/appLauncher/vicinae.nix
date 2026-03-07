@@ -23,7 +23,7 @@ in
             considerPreedit = true;
             pop_to_root_on_close = true;
             favicon_service = "twenty";
-            search_files_in_root = true;
+            search_files_in_root = false;
             font = {
             normal = {
                 size = 12;
@@ -41,17 +41,10 @@ in
             };
             };
             launcher_window = {
-            opacity = 0.95;
+              opacity = 0.95;
+              compact_mode.enabled = true;
             };
             providers = {
-              "@Gelei/bluetooth-0" = {
-                enabled = false;
-              };
-              "@sovereign/hypr-keybinds-0" = {
-                  "preferences"= {
-                      "keybindsConfigPath" ="~/.config/hypr/hyprland.conf";
-                  };
-              };
               "applications" = {
                 "entrypoints" = {
                     "foot-server" = {
@@ -68,14 +61,14 @@ in
                       "enabled" = false;
                     };
                 };
+              };
             };
-        };
+            "fallbacks" = [];
+            "favorites" = [];
         };
           extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
-                bluetooth
                 nix
                 power-profile
-                hypr-keybinds
                 process-manager
                 pulseaudio
 
