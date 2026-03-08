@@ -1,45 +1,35 @@
 # SDDM display manager theming
+# Theme and .conf are configured via the sddm-astronaut NixOS module.
 { config, lib, pkgs, ... }:
 
-let
-  # Wallpaper path as store path so SDDM greeter can load it at runtime
-  tf2Wallpaper = ../../../assets/wallpaper/tf2.png;
-  # Local theme (pkgs.local.sddm-astronaut) with black_hole + custom config
-  sddm-astronaut-black-hole = pkgs.local.sddm-astronaut.override {
-    embeddedTheme = "black_hole";
-    themeConfig = {
-      background = "${tf2Wallpaper}";
-      ScreenWidth = 5120;
-      ScreenHeight = 1440;
-      PartialBlur = true;
-      BlurMax = 48;
-      ScreenPadding = 0;
-      LoginFormWidth = 25;
-      PasswordFieldWidth = 350;
-      UsernameFieldWidth = 350;
-      LoginButtonWidth = 350;
-      UsernameFieldAlignment = "left";
-      PasswordFieldAlignment = "left";
-      DateFormat = "dddd d.MMM";
-      FormBackgroundColor = "#5A5A5A";
-    };
-  };
-in
 {
+  imports = [ ../../../pkgs/sddm-astronaut/nixos-module.nix ];
+
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
-    theme = "sddm-astronaut-theme";
 
-    extraPackages = [
-      pkgs.kdePackages.qtmultimedia
-      pkgs.kdePackages.qtsvg
-      pkgs.kdePackages.qtvirtualkeyboard
-      sddm-astronaut-black-hole
-    ];
+    astronautTheme = {
+      package = pkgs.local.sddm-astronaut;
+      embeddedTheme = "black_hole";
+      themeConfig = {
+        background = "${../../../assets/wallpaper/tf2.png}";
+        ScreenWidth = 5120;
+        ScreenHeight = 1440;
+        PartialBlur = true;
+        BlurMax = 40;
+        Blur = 2.0;
+        ScreenPadding = 0;
+        LoginFormWidth = 25;
+        PasswordFieldWidth = 350;
+        UsernameFieldWidth = 350;
+        LoginButtonWidth = 350;
+        UsernameFieldAlignment = "left";
+        PasswordFieldAlignment = "left";
+        DateFormat = "dddd d. MMM";
+        FormBackgroundColor = "#5A5A5A";
+        Debug = true;
+      };
+    };
   };
-
-  environment.systemPackages = [
-    sddm-astronaut-black-hole
-  ];
 }

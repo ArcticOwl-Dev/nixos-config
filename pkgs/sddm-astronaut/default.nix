@@ -14,8 +14,8 @@ stdenvNoCC.mkDerivation rec {
   src = pkgs.fetchFromGitHub {
     owner = "ArcticOwl-Dev";
     repo = "sddm-astronaut-theme";
-    rev = "c66df3084f1a2bb70bd76f6c64f2d24e57d169ab";
-    hash = "sha256-0fTOjlWlnszuhErEsGBE6n0+vokI7fYPn8R2w47ZnXo=";
+    rev = "8e2c12843931ea9c9818750e295a4404a56f959f";
+    hash = "sha256-r3yWRante+SOo9tCSLI7ewNXI2u2zU26eqCttUZHEJM=";
   };
 
   dontWrapQtApps = true;
@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation rec {
     ''
     + lib.optionalString (themeConfig != null) ''
       chmod u+w ${basePath}/Themes/
-      ln -sf ${configFile} ${basePath}/Themes/${embeddedTheme}.conf.user
+      cp ${configFile} ${basePath}/Themes/${embeddedTheme}.conf.user
     '';
 
   meta = {
@@ -57,4 +57,7 @@ stdenvNoCC.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };
+
+  # NixOS module: sets ThemeDir to the theme store path so SDDM loads it directly.
+  passthru.nixosModule = ./nixos-module.nix;
 }
