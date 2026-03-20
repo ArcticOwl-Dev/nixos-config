@@ -47,7 +47,7 @@ in {
       Type=Application
       Name=YouTube
       GenericName=Video Streaming
-      Exec=${braveWithArgs}/bin/brave --app=https://www.youtube.com
+      Exec=${braveWithArgs}/bin/brave --profile-directory=Default --app=https://www.youtube.com
       Icon=youtube
       Terminal=false
       Categories=Network;Video
@@ -61,7 +61,7 @@ in {
       Type=Application
       Name=Twitch
       GenericName=Video Streaming
-      Exec=${braveWithArgs}/bin/brave --app=https://www.twitch.tv
+      Exec=${braveWithArgs}/bin/brave --profile-directory=Default --app=https://www.twitch.tv
       Icon=gnome-twitch
       Terminal=false
       Categories=Network;Video
