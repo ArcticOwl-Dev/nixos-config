@@ -47,7 +47,9 @@ let
 
     # [Display & RDP]
     rdpScale = "100";             # "100" | "140" | "180"
-    rdpFlags = "/cert:tofu /sound /microphone +home-drive";
+    # Clipboard: /clipboard:direction-to:all forces Linux→Windows paste (xfreerdp reads X11 CLIPBOARD).
+    # On Wayland, use the winapps wrapper below so Wayland clipboard is synced to X11 before RDP starts.
+    rdpFlags = "/cert:tofu /sound /microphone +home-drive /clipboard:direction-to:all";
     rdpFlagsNonWindows = "";      # Extra flags for app sessions (not full desktop)
     rdpFlagsWindows = "";         # Extra flags for full desktop session
 
@@ -108,11 +110,22 @@ let
         group_add:
           - ${composeConfig.groupAdd}
   '';
+
+  # Wrap winapps so on Wayland we sync clipboard to X11 before RDP starts (xfreerdp reads X11 only).
+  winappsUnwrapped = inputs.winapps.packages.${pkgs.stdenv.hostPlatform.system}.winapps;
+  winappsWrapped = pkgs.runCommand "winapps-clipboard" {
+    buildInputs = [ pkgs.makeWrapper pkgs.xclip pkgs.wl-clipboard ];
+  } ''
+    mkdir -p $out/bin
+    makeWrapper "${winappsUnwrapped}/bin/winapps" $out/bin/winapps \
+      --prefix PATH : "${pkgs.lib.makeBinPath [ pkgs.xclip pkgs.wl-clipboard ]}" \
+      --run 'if [ -n "$WAYLAND_DISPLAY" ]; then wl-paste 2>/dev/null | xclip -selection clipboard -in 2>/dev/null || true; fi'
+  '';
 in
 {
-  home.packages = with inputs.winapps.packages.${pkgs.stdenv.hostPlatform.system}; [
-    winapps
-    winapps-launcher
+  home.packages = [
+    winappsWrapped
+    inputs.winapps.packages.${pkgs.stdenv.hostPlatform.system}.winapps-launcher
     pkgs.freerdp  # xfreerdp - needed for WinApps RDP connections
   ];
 
@@ -155,4 +168,10 @@ in
       url = "https://github.com/winapps-org/winapps/archive/2dbd242649027ac1b8c44619c5f6ce3fd2e22851.tar.gz";
       sha256 = "1v9w43ldkb4b8n0bvk1whqrfd4qf5f0jylq0jx55nbn3j9qkrplj";
     }}/oem";
+
+  
+
+  # Update shown Apps in linux 
+  # winapps-setup --user 
+  # -> select apps to show (or when nix store changes)
 }
