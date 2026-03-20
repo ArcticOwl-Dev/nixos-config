@@ -64,7 +64,8 @@ in
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
   # Systemd user service for Remote Touchpad
-  systemd.user.services.remote-touchpad = mkIf cfg.autoStart {
+  # Name follows app-<app_id>.service so xdg-desktop-portal can identify it for "Control input device" permission
+  systemd.user.services."app-com.arcticowl.remote-touchpad" = mkIf cfg.autoStart {
       description = "Remote Touchpad";
       wantedBy = [ "default.target" ];
     restartIfChanged = true;

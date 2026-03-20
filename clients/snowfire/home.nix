@@ -45,6 +45,11 @@
     touch "$HOME/.hm-reload-trigger"
   '';
 
+  # Pre-authorize "Control input device" for Remote Touchpad only (app_id from its systemd unit name)
+  home.activation.kdePortalInputPermission = inputs.home-manager.lib.hm.dag.entryAfter [ "reloadTrigger" ] ''
+    ${pkgs.flatpak}/bin/flatpak permission-set kde-authorized remote-desktop "com.arcticowl.remote-touchpad" yes 2>/dev/null || true
+  '';
+
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
