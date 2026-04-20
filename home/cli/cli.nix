@@ -1,4 +1,10 @@
-{ config, lib, pkgs, style, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  style,
+  ...
+}:
 let
   nerdFont = style.nerdFont;
 in
@@ -9,13 +15,14 @@ in
     nerd-fonts.noto
     curlFull
     wget
-    jq                                          # json processor
-    brightnessctl                               # brightness control
-    nh                                          # nix helper 
+    jq # json processor
+    brightnessctl # brightness control
+    nh # nix helper
+    comma # run commands by temporary install nix packages ", cowsay neato"
   ];
 
   programs.fish = {
-    enable = true;                              # fish (shell)
+    enable = true; # fish (shell)
     generateCompletions = true;
     interactiveShellInit = ''
       # syntax: bash
@@ -71,8 +78,8 @@ in
       '';
     };
   };
-
-  programs.eza = {                                          # eza (file explorer)
+  programs.eza = {
+    # eza (file explorer)
     enable = true;
     enableFishIntegration = true;
     icons = "auto";
@@ -82,26 +89,30 @@ in
       "--hyperlink"
     ];
   };
-  programs.micro.enable = true;                             # micro (text editor)
-  programs.micro.settings = {
-    editor = {
-      font = nerdFont;
-      font_size = 12;
-      line_height = 1.5;
-      line_width = 120;
-      line_width_chars = 120;
+  programs.micro = {
+    # micro (text editor)
+    enable = true; 
+    settings = {
+      editor = {
+        font = nerdFont;
+        font_size = 12;
+        line_height = 1.5;
+        line_width = 120;
+        line_width_chars = 120;
+      };
+      clipboard = "external";
     };
-    clipboard = "external";
   };
 
-  programs.fastfetch.enable = true;                         # fastfetch (system information)
-  programs.btop.enable = true;                              # btop (system monitor)
-  services.cliphist.enable = true;                          # cliphist (clipboard history)
-  programs.fd.enable = true;                                # fd (file finder)
-  programs.lazygit.enable = true;                           # lazygit (git client)
-  programs.lazygit.enableFishIntegration = true;          
-  
-  programs.starship ={                                       # starship (prompt)
+  programs.fastfetch.enable = true; # fastfetch (system information)
+  programs.btop.enable = true; # btop (system monitor)
+  services.cliphist.enable = true; # cliphist (clipboard history)
+  programs.fd.enable = true; # fd (file finder)
+  programs.lazygit.enable = true; # lazygit (git client)
+  programs.lazygit.enableFishIntegration = true;
+
+  programs.starship = {
+    # starship (prompt)
     enable = true;
     enableFishIntegration = true;
     settings = {
@@ -130,5 +141,12 @@ in
       nix_shell.symbol = "❄️ ";
     };
   };
+  programs.direnv = {
+    enable = true;
+    enableFishIntegration = true;
+    nix-direnv.enable = true;
+    # how to use:
+    # echo "use flake" > .envrc
+    # direnv allow
+  };
 }
-

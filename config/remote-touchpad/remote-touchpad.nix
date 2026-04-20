@@ -6,14 +6,18 @@
     ../../modules/remote-touchpad
   ];
 
-  # Remote Touchpad - built from source with Go
+  # Remote Touchpad — flake package + optional tsnet (see modules/remote-touchpad)
   services.remote-touchpad = {
     enable = true;
     user = "r00t";
-    autoStart = true;  # Set to true if you want it to start automatically
-    port = 40999;       # Default port
-    keymap = "de";      # German keyboard layout
-    secret = "your-secret-password-here";  # Set a secret to avoid QR code scanning
+    autoStart = true;
+    port = 40999;
+    keymap = "de";
+    # Optional HTTP shared secret (or add to sops later). null = QR pairing.
+    secret = "my-secret-password";
+    # tsnet: stable hostname on your tailnet; auth key from sops (same as system Tailscale can use).
+    tailscaleHostname = "remote-touchpad";
+    tailscaleAuthKeyFile = config.sops.secrets.tailscale-auth-key.path;
   };
 }
 

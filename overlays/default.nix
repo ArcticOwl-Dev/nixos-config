@@ -1,7 +1,7 @@
 # This file defines overlays
 {inputs, ...}: {
   # This one brings our custom packages from the 'pkgs' directory
-  additions = final: _prev: import ../pkgs final;
+  additions = final: _prev: import ../pkgs final inputs;
 
   # Apply patches to nixpkgs packages (see readme.md).
   modifications = final: prev: {

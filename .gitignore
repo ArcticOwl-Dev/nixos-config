@@ -1,0 +1,7 @@
+*.key
+*.age
+.direnv
+result*
+*.qcow2
+.nixie
+.env

@@ -328,6 +328,63 @@
       "services/vicinae.desktop".open = "Meta+Space";
     };
 
+    workspace = {
+      cursor = {
+        theme = "breeze_cursors";
+        size = 24;
+        taskManagerFeedback = true;
+        animationTime = 5;
+        cursorFeedback = "Bouncing";
+      };
+      iconTheme = "Papirus-Dark";
+      soundTheme = "Ocean";
+      lookAndFeel = "org.kde.breezedark.desktop";
+      wallpaper = "/nix/store/gxn3s7509c31qfvdi090fiaihzyjwxgs-plasma-workspace-wallpapers-6.5.4/share/wallpapers/Altai/"; # TODO: change to custom wallpaper
+      #wallpaperCustomplugin = {}
+    };
+
+    fonts = {
+      general = {
+        family = "Noto Sans";
+        pointSize = 10;
+      };
+      fixedWidth = {
+        family = "Noto Mono Nerd Font";
+        pointSize = 10;
+      };
+      small = {
+        family = "Noto Sans";
+        pointSize = 8;
+      };
+      toolbar = {
+        family = "Noto Sans";
+        pointSize = 10;
+      };
+      menu = {
+        family = "Noto Sans";
+        pointSize = 10;
+      };
+      windowTitle = {
+        family = "Noto Sans";
+        pointSize = 10;
+      };
+    };
+
+    kwin = {
+      virtualDesktops ={
+        names = [ "Default" "Gaming" "Stream" ];
+        number = 3;
+        rows = 1;
+      };
+      nightLight  = {
+        enable = true;
+        mode = "constant";
+        temperature.day = 4000;
+        temperature.night = 4000;
+        transitionTime = 5;
+      };
+    };
+
     # ==========================================================================
     # Config Files - Application .rc / .conf settings
     # ==========================================================================
@@ -348,17 +405,12 @@
 
       # --- Input (mouse, keyboard) ---
       kcminputrc."Libinput/1133/16500/Logitech G305".PointerAccelerationProfile = 1;
-      kcminputrc.Mouse.cursorTheme = "breeze_cursors";
       kded5rc.Module-browserintegrationreminder.autoload = false;
       kded5rc.Module-device_automounter.autoload = false;
 
       # --- KDE Globals (theme, fonts, terminal) ---
-      kdeglobals.General.TerminalApplication = "foot";
-      kdeglobals.General.TerminalService = "foot.desktop";
       kdeglobals.General.XftHintStyle = "hintslight";
       kdeglobals.General.XftSubPixel = "none";
-      kdeglobals.General.fixed = "NotoMono Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
-      kdeglobals.Icons.Theme = "Papirus-Dark";
       kdeglobals.KDE.AnimationDurationFactor = 0.25;
       kdeglobals."KFileDialog Settings"."Allow Expansion" = false;
       kdeglobals."KFileDialog Settings"."Automatically select filename extension" = true;
@@ -407,29 +459,8 @@
       ktrashrc."\\/home\\/r00t\\/.local\\/share\\/Trash".UseTimeLimit = false;
       kwalletrc.Wallet."First Use" = false;
 
-      # --- KWin (window manager, tiling, night color) ---
-      kwinrc.Desktops.Id_1 = "ce07d945-d687-47d5-aa6c-24589e83f5ca";
-      kwinrc.Desktops.Id_2 = "01b8814f-f3dc-4938-b9e6-0b8d03838314";
-      kwinrc.Desktops.Name_1 = "Default";
-      kwinrc.Desktops.Name_2 = "Stream";
-      kwinrc.Desktops.Number = 2;
-      kwinrc.Desktops.Rows = 1;
-      kwinrc.NightColor.Active = true;
-      kwinrc.NightColor.Mode = "Constant";
-      kwinrc.Plugins.kzonesEnabled = true;
-      kwinrc.Plugins.mousetilerEnabled = false;
+      # --- KWin (window manager, tiling) ---
       kwinrc.Plugins.rememberwindowpositionsEnabled = false;
-      kwinrc.Script-kzones."[Tiling][01b8814f-f3dc-4938-b9e6-0b8d03838314][]" = "";
-      kwinrc.Script-kzones.edgeSnappingTriggerDistance = 0;
-      kwinrc.Script-kzones.enableEdgeSnapping = true;
-      kwinrc.Script-kzones.layoutsJson = "[\n    {\n        \"name\": \"2x Prio + Video\",\n        \"padding\": 0,\n        \"zones\": [\n            {\n                \"x\": 0,\n                \"y\": 0,\n                \"height\": 100,\n                \"width\": 39.5\n            },\n            {\n                \"x\": 39.5,\n                \"y\": 0,\n                \"height\": 100,\n                \"width\": 39.75\n            },\n            {\n                \"x\": 79.25,\n                \"y\": 0,\n                \"height\": 100,\n                \"width\": 20.75\n            }\n        ]\n    },\n    {\n        \"name\": \"Quadrant Grid\",\n        \"zones\": [\n            {\n                \"x\": 0,\n                \"y\": 0,\n                \"height\": 50,\n                \"width\": 50\n            },\n            {\n                \"x\": 0,\n                \"y\": 50,\n                \"height\": 50,\n                \"width\": 50\n            },\n            {\n                \"x\": 50,\n                \"y\": 50,\n                \"height\": 50,\n                \"width\": 50\n            },\n            {\n                \"x\": 50,\n                \"y\": 0,\n                \"height\": 50,\n                \"width\": 50\n            }\n        ]\n    }\n]";
-      kwinrc.Script-kzones.tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-      kwinrc."Tiling/01b8814f-f3dc-4938-b9e6-0b8d03838314/9868fbee-cb47-41a1-9cf5-b2dd74a6ffdc"."[Tiling][ce07d945-d687-47d5-aa6c-24589e83f5ca][]" = "";
-      kwinrc."Tiling/01b8814f-f3dc-4938-b9e6-0b8d03838314/9868fbee-cb47-41a1-9cf5-b2dd74a6ffdc".padding = 4;
-      kwinrc."Tiling/01b8814f-f3dc-4938-b9e6-0b8d03838314/9868fbee-cb47-41a1-9cf5-b2dd74a6ffdc".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-      kwinrc."Tiling/ce07d945-d687-47d5-aa6c-24589e83f5ca/2a889de5-41d8-4fb5-bf56-053b7bcd09bd".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.3431640625},{\"width\":0.16171875000000002},{\"width\":0.49511718749999667}]}";
-      kwinrc."Tiling/ce07d945-d687-47d5-aa6c-24589e83f5ca/9868fbee-cb47-41a1-9cf5-b2dd74a6ffdc".padding = 4;
-      kwinrc."Tiling/ce07d945-d687-47d5-aa6c-24589e83f5ca/9868fbee-cb47-41a1-9cf5-b2dd74a6ffdc".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.3484375},{\"width\":0.39941406249999994},{\"width\":0.25214843750000004}]}";
       kwinrc.Windows.BorderSnapZone = 0;
       kwinrc.Windows.DelayFocusInterval = 0;
       kwinrc.Xwayland.Scale = 1;
@@ -438,32 +469,34 @@
       kwinrc."org.kde.kdecoration2".theme = "Breeze";
       kwinrc.Plugins.closeUnderCursorEnabled = true;
 
-      # --- KWin Rules (ulauncher, etc.) ---
-      kwinrulesrc."27736c95-7660-4871-87eb-2159ae68abc1".Description = "ulauncher";
-      kwinrulesrc."27736c95-7660-4871-87eb-2159ae68abc1".noborder = true;
-      kwinrulesrc."27736c95-7660-4871-87eb-2159ae68abc1".noborderrule = 2;
-      kwinrulesrc."27736c95-7660-4871-87eb-2159ae68abc1".placement = 6;
-      kwinrulesrc."27736c95-7660-4871-87eb-2159ae68abc1".placementrule = 2;
-      kwinrulesrc."27736c95-7660-4871-87eb-2159ae68abc1".wmclass = "ulauncher";
-      kwinrulesrc."27736c95-7660-4871-87eb-2159ae68abc1".wmclassmatch = 3;
-      kwinrulesrc."4979aef1-c72f-4744-8f48-c9684198428a".Description = "no title bar";
-      kwinrulesrc."4979aef1-c72f-4744-8f48-c9684198428a".Enabled = false;
-      kwinrulesrc."4979aef1-c72f-4744-8f48-c9684198428a".noborder = true;
-      kwinrulesrc."4979aef1-c72f-4744-8f48-c9684198428a".noborderrule = 3;
-      kwinrulesrc."4979aef1-c72f-4744-8f48-c9684198428a".wmclass = ".*";
-      kwinrulesrc."4979aef1-c72f-4744-8f48-c9684198428a".wmclassmatch = 3;
-      kwinrulesrc.General.count = 2;
-      kwinrulesrc.General.rules = "4979aef1-c72f-4744-8f48-c9684198428a,27736c95-7660-4871-87eb-2159ae68abc1";
-      kwinrulesrc.a4c8f387-5697-4377-93ff-b3138140c15a.Description = "No title bar";
-      kwinrulesrc.a4c8f387-5697-4377-93ff-b3138140c15a.noborder = true;
-      kwinrulesrc.a4c8f387-5697-4377-93ff-b3138140c15a.noborderrule = 3;
-      kwinrulesrc.a4c8f387-5697-4377-93ff-b3138140c15a.wmclass = ".*";
-      kwinrulesrc.a4c8f387-5697-4377-93ff-b3138140c15a.wmclassmatch = 3;
+      # Deactivate native plasma tiling (using kzones instead)
+      kwinrc.Windows.ElectricBorderMaximize = false;
+      kwinrc.Windows.ElectricBorderTiling = false;
+
+      # KZones plugin
+        kwinrc.Plugins.kzonesEnabled = true;
+        kwinrc.Script-kzones."[Tiling][01b8814f-f3dc-4938-b9e6-0b8d03838314][]" = "";
+
+        kwinrc.Script-kzones.enableDebugOverlay = false;
+        kwinrc.Script-kzones.enableEdgeSnapping = true;
+        kwinrc.Script-kzones.edgeSnappingTriggerDistance = 0;
+
+        kwinrc.Script-kzones.autoSnapAllNew = true;
+        kwinrc.Script-kzones.filterList = "^steam_app_.*\nsteam_app_2420110G\norg.kde.spectacle"; #no wildcard is supported
+        kwinrc.Script-kzones.filterMode = 1; # 0 = exclude, 1 = include
+
+        kwinrc.Script-kzones.layoutsJson = "[\n    {\n        \"name\": \"2x Prio + Video\",\n        \"padding\": 0,\n        \"zones\": [\n            {\n                \"x\": 0,\n                \"y\": 0,\n                \"height\": 100,\n                \"width\": 39.5\n            },\n            {\n                \"x\": 39.5,\n                \"y\": 0,\n                \"height\": 100,\n                \"width\": 39.75\n            },\n            {\n                \"x\": 79.25,\n                \"y\": 0,\n                \"height\": 100,\n                \"width\": 20.75\n            }\n        ]\n    },\n    {\n        \"name\": \"Quadrant Grid\",\n        \"zones\": [\n            {\n                \"x\": 0,\n                \"y\": 0,\n                \"height\": 50,\n                \"width\": 50\n            },\n            {\n                \"x\": 0,\n                \"y\": 50,\n                \"height\": 50,\n                \"width\": 50\n            },\n            {\n                \"x\": 50,\n                \"y\": 50,\n                \"height\": 50,\n                \"width\": 50\n            },\n            {\n                \"x\": 50,\n                \"y\": 0,\n                \"height\": 50,\n                \"width\": 50\n            }\n        ]\n    }\n]";
+        kwinrc.Script-kzones.tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+        kwinrc."Tiling/01b8814f-f3dc-4938-b9e6-0b8d03838314/9868fbee-cb47-41a1-9cf5-b2dd74a6ffdc"."[Tiling][ce07d945-d687-47d5-aa6c-24589e83f5ca][]" = "";
+        kwinrc."Tiling/01b8814f-f3dc-4938-b9e6-0b8d03838314/9868fbee-cb47-41a1-9cf5-b2dd74a6ffdc".padding = 4;
+        kwinrc."Tiling/01b8814f-f3dc-4938-b9e6-0b8d03838314/9868fbee-cb47-41a1-9cf5-b2dd74a6ffdc".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+        kwinrc."Tiling/ce07d945-d687-47d5-aa6c-24589e83f5ca/2a889de5-41d8-4fb5-bf56-053b7bcd09bd".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.3431640625},{\"width\":0.16171875000000002},{\"width\":0.49511718749999667}]}";
+        kwinrc."Tiling/ce07d945-d687-47d5-aa6c-24589e83f5ca/9868fbee-cb47-41a1-9cf5-b2dd74a6ffdc".padding = 4;
+        kwinrc."Tiling/ce07d945-d687-47d5-aa6c-24589e83f5ca/9868fbee-cb47-41a1-9cf5-b2dd74a6ffdc".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.3484375},{\"width\":0.39941406249999994},{\"width\":0.25214843750000004}]}";
 
       # --- Plasma theme, Spectacle ---
       plasma-localerc.Formats.LANG = "en_US.UTF-8";
       plasmanotifyrc."Applications/brave-browser".Seen = true;
-      plasmanotifyrc."Applications/io.ulauncher.Ulauncher".Seen = true;
       plasmarc.Theme.name = "breeze-dark";
       plasmarc.Wallpapers.usersWallpapers = "/nix/store/gxn3s7509c31qfvdi090fiaihzyjwxgs-plasma-workspace-wallpapers-6.5.4/share/wallpapers/Altai/";
       spectaclerc.Annotations.annotationToolType = 9;
@@ -472,7 +505,7 @@
     };
   };
 
-  # Manually create the KWin script structure
+  # KWin script to close the window under the cursor
   home.file.".local/share/kwin/scripts/closeUnderCursor/contents/code/main.js".text = ''
     // syntax: javascript
     registerShortcut("Close Window Under Cursor", "Close Window Under Cursor", "Meta+Q", function() {
@@ -508,4 +541,6 @@
       ServiceTypes = [ "KWin/Script" ];
     };
   };
+
+
 }

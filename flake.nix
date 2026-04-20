@@ -43,6 +43,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Encrypted secrets (SOPS + age)
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # remote-touchpad source (default branch; pinned in flake.lock)
+    remote-touchpad = {
+      url = "github:ArcticOwl-Dev/remote-touchpad";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = {
@@ -53,13 +65,14 @@
     plasma-manager,
     winapps,
     zen-browser,
+    sops-nix,
     ...
   } @ inputs: let
     # Supported systems for your flake packages, shell, etc.
     system = "x86_64-linux";
 
   in {
-    packages = import ./pkgs nixpkgs.legacyPackages.${system};
+    packages = import ./pkgs nixpkgs.legacyPackages.${system} inputs;
     formatter = nixpkgs.legacyPackages.${system}.nixfmt;
 
     overlays = import ./overlays {inherit inputs;};
@@ -83,6 +96,7 @@
             home-manager.backupFileExtension = "backup";
             home-manager.sharedModules = [
               plasma-manager.homeModules.plasma-manager
+              sops-nix.homeManagerModules.sops
             ];
 
             home-manager.users.r00t = import ./clients/snowfire/home.nix;

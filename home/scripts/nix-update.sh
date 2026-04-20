@@ -49,7 +49,7 @@ nix flake update
 
 # 2. Build the new configuration (without switching)
 echo "Building new system derivation..."
-if ! nixos-rebuild build --flake "$FLAKE_REF"; then
+if ! nh os build . --hostname "$HOST" --out-link ./result; then
   echo "Error: Build failed! Reverting flake.lock..."
   [[ -d .git ]] && git checkout flake.lock
   exit 1
@@ -58,7 +58,7 @@ fi
 # 3. Show the difference using nvd (strip fish-completions from version lists for readability)
 echo ""
 echo "Comparing changes:"
-nix run nixpkgs#nvd -- diff /run/current-system ./result \
+nix run nixpkgs#nvd -- --color always diff /run/current-system ./result \
   | sed -E 's/, [0-9][0-9._-]*[-_]fish-completions( x[0-9]+)?//g; s/  +/ /g'
 
 # 4. Ask to Apply, Keep, or Revert
@@ -68,11 +68,11 @@ read -p "Do you want to (s)witch to this update, (k)eep the lockfile but don't s
 case "$choice" in
   s|S)
     echo "Applying updates..."
-    sudo nixos-rebuild switch --flake "$FLAKE_REF"
+    nh os switch . --hostname "$HOST"
     rm -f ./result
     ;;
   k|K)
-    echo "Lockfile updated. To apply later, run: sudo nixos-rebuild switch --flake $FLAKE_REF"
+    echo "Lockfile updated. To apply later, run: nh os switch . --hostname $HOST"
     ;;
   r|R|*)
     echo "Reverting changes..."

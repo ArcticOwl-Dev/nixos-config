@@ -56,6 +56,21 @@ See `pkgs/readme.md` and `modules/readme.md` for more details on those directori
 
 ## How to Use
 
+rebuild system
 ```bash
 sudo nixos-rebuild switch --flake .#snowfire
+```
+rebuild system (better formatted) [ with NH_OS_FLAKE ]
+```bash
+nh os switch
+```
+
+update all packages
+```bash
+nix flake update
+```
+
+update single flake input 
+```bash
+nix flake update {flake input} 
 ```

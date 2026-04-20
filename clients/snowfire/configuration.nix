@@ -10,6 +10,8 @@
      ../../config/virtualisation/winapps-vm.nix
      ../../config/vpn/tailscale.nix
      ../../config/games/steam.nix
+     ../../config/secrets/sops-nix.nix
+     
   ];
 
   networking.hostName = "snowfire";
@@ -83,7 +85,7 @@
   # =============================================================================
   boot.loader = {
     systemd-boot.enable = false;
-    timeout = 10;
+    timeout = 3;
     efi.canTouchEfiVariables = true;
     grub = {
       enable = true;

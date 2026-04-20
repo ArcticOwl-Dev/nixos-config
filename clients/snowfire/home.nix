@@ -17,16 +17,15 @@
     ../../home/vpn/tailscale-systray.nix
 
     ../../home/appLauncher/vicinae.nix
-    #../../home/appLauncher/walker.nix
 
     ../../home/office/pdfViewer-Okular.nix
     ../../home/office/videoViewer-vlc.nix
     ../../home/office/office-onlyOffice.nix
     ../../home/office/email-thunderbird.nix
-    #../../home/office/office-linoffice.nix
+    ../../home/office/email-mailspring.nix
     ../../home/office/office-winapps.nix
 
-    ../../home/desktop/plasma/plasmamanager.nix
+     ../../home/desktop/plasma/plasmamanager.nix
 
     ../../home/style/style.nix
 
