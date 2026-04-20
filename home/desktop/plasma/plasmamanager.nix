@@ -1,17 +1,5 @@
 { config, lib, pkgs, ... }:
 {
-  # Desktop entry for Walker global shortcut (Meta+Space) - sends to walker socket
-  xdg.dataFile."applications/walker-launch.desktop" = {
-    text = ''
-      [Desktop Entry]
-      Exec=sh -c 'nc -U "''${XDG_RUNTIME_DIR:-/run/user/1000}/walker/walker.sock"'
-      Name=Walker
-      NoDisplay=true
-      StartupNotify=false
-      Type=Application
-      X-KDE-GlobalAccel-CommandShortcut=true
-    '';
-  };
 
   programs.plasma = {
     enable = true;

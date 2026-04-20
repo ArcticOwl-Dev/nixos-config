@@ -9,11 +9,6 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # walker
-    elephant.url = "github:abenz1267/elephant";
-    walker.url = "github:abenz1267/walker";
-    walker.inputs.elephant.follows = "elephant";
-
     # vicinae
     vicinae.url = "github:vicinaehq/vicinae";
     vicinae-extensions = {
