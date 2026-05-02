@@ -1,4 +1,4 @@
-{ config, lib, pkgs, style, inputs, ... }:
+{ config, pkgs, style, inputs, ... }:
 let
   nerdFont = style.nerdFont;
 in
@@ -11,6 +11,7 @@ in
     enable = true;
         systemd = {
             enable = true;
+            
             autoStart = true; # default: false
             environment = {
                 USE_LAYER_SHELL = "1";

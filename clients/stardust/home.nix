@@ -1,5 +1,5 @@
 # Home Manager configuration for stardust
-{ config, lib, pkgs, inputs, style, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../../home/browser/brave.nix
@@ -13,7 +13,6 @@
     ../../home/desktop/hyprlock.nix
     ../../home/desktop/waybar/waybar.nix
     
-    ../../home/appLauncher/walker.nix
     ../../home/appLauncher/vicinae.nix
   ];
 

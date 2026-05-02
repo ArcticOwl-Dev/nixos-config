@@ -71,6 +71,29 @@
     formatter = nixpkgs.legacyPackages.${system}.nixfmt;
 
     overlays = import ./overlays {inherit inputs;};
+
+    # Full Home Manager `options` (same module stack as the live hosts) for nixd and
+    # `home-manager {build,switch} --flake .#r00t@...` on non-NixOS or debugging.
+    homeConfigurations = {
+      "r00t@snowfire" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = {
+          inherit inputs;
+          style = import ./clients/snowfire/style.nix;
+        };
+        modules = [
+          plasma-manager.homeModules.plasma-manager
+          sops-nix.homeManagerModules.sops
+          {
+            # NixOS sets these from the `users.<name> = ...` key; standalone HM needs them explicitly
+            home.username = "r00t";
+            home.homeDirectory = "/home/r00t";
+          }
+          ./clients/snowfire/home.nix
+        ];
+      };
+      # stardust: add when clients/stardust/home.nix only references existing modules (e.g. hyprland HM module path is currently missing in-tree).
+    };
  
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {

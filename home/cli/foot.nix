@@ -1,4 +1,4 @@
-{ config, lib, pkgs, style, ... }:
+{ pkgs, style, ... }:
 let
   nerdFont = style.nerdFont;
 in

@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   style,
@@ -19,10 +18,11 @@ in
     brightnessctl # brightness control
     nh # nix helper
     comma # run commands by temporary install nix packages ", cowsay neato"
+    nix-index
   ];
-
   programs.fish = {
     enable = true; # fish (shell)
+    
     generateCompletions = true;
     interactiveShellInit = ''
       # syntax: bash
@@ -149,4 +149,5 @@ in
     # echo "use flake" > .envrc
     # direnv allow
   };
+  
 }

@@ -1,0 +1,14 @@
+{
+  "nix.serverSettings": {
+    "nixd": {
+      "options": {
+        "nixos": {
+          "expr": "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.snowfire.options"
+        },
+        "home-manager": {
+          "expr": "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.\"r00t@snowfire\".options"
+        }
+      }
+    }
+  }
+}
