@@ -122,5 +122,7 @@
   boot.consoleLogLevel = 4;
   boot.initrd.verbose = false;
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
 }
 
