@@ -1,5 +1,5 @@
 # Home Manager configuration for stardust
-{ config, lib, pkgs, inputs, style, ... }:
+{ config, pkgs, inputs, ... }:
 {
   imports = [
     ../../home/scripts/default.nix
@@ -15,6 +15,7 @@
 
     ../../home/cloudStorage/filen.nix
     ../../home/vpn/tailscale-systray.nix
+    ../../home/vpn/nordvpn.nix
 
     ../../home/appLauncher/vicinae.nix
 
