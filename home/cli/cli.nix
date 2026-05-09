@@ -19,6 +19,7 @@ in
     nh # nix helper
     comma # run commands by temporary install nix packages ", cowsay neato"
     nix-index
+    unrar
   ];
   programs.fish = {
     enable = true; # fish (shell)
