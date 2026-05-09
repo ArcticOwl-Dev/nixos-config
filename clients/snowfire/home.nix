@@ -15,7 +15,7 @@
 
     ../../home/cloudStorage/filen.nix
     ../../home/vpn/tailscale-systray.nix
-    ../../home/vpn/nordvpn.nix
+    ../../home/vpn/nord.nix  
 
     ../../home/appLauncher/vicinae.nix
 
