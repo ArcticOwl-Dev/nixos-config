@@ -3,8 +3,13 @@
 # - System-level OpenGL/Vulkan setup
 # - Hardware access (GPU, input devices)
 # - Firewall rules at system level
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, inputs, ... }:
 {
+
+  # Add Millennium overlay to nixpkgs
+  nixpkgs.overlays = [ inputs.millennium.overlays.default ];
+
+
   # Enable hardware acceleration (OpenGL/Vulkan)
   # This is required for Steam games to work properly
   # Note: hardware.opengl was renamed to hardware.graphics in NixOS 24.11+
@@ -33,6 +38,7 @@
     localNetworkGameTransfers.openFirewall = true;
     # Enable gamescope for better performance and frame pacing
     gamescopeSession.enable = true;
+    package = pkgs.millennium-steam;
   };
 
   # Enable AppImage support (many games use AppImages)

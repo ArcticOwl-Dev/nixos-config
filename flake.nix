@@ -50,6 +50,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Millennium - Steam Client Homebrew 
+    millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+
   };
 
   outputs = {

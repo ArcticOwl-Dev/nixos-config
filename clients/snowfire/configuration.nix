@@ -1,5 +1,5 @@
 # NixOS configuration for snowfire
-{ config, lib, pkgs, inputs, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
      ./hardware-configuration.nix
