@@ -75,7 +75,6 @@
     webBrowser = "brave-browser.desktop";
     imageViewer = "org.kde.gwenview.desktop";
     codeEditor = "cursor.desktop";
-    textEditor = "micro.desktop";
     pdfViewer = "org.kde.okular.desktop";
     videoPlayer = "vlc.desktop";
     audioPlayer = "vlc.desktop";

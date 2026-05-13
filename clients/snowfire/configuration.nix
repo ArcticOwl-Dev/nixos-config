@@ -4,8 +4,12 @@
   imports = [
      ./hardware-configuration.nix
      ../../config/desktop/plasma/plasma.nix 
-     ../../config/sound/default.nix
-     ../../config/i18n/default.nix
+
+     ../../config/general/sound.nix
+     ../../config/general/i18n.nix
+     ../../config/general/printer.nix
+     ../../config/general/scanner.nix
+
      ../../config/remote-touchpad/remote-touchpad.nix
      ../../config/virtualisation/winapps-vm.nix
      ../../config/vpn/tailscale.nix
@@ -17,11 +21,9 @@
   networking.hostName = "snowfire";
 
   # =============================================================================
-  # Firewall, Printing, Fonts
+  # Firewall, Fonts
   # =============================================================================
-  networking.firewall.enable = true;
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.gutenprint ];   
+  networking.firewall.enable = true; 
   fonts.fontDir.enable = true;
   
   # =============================================================================
@@ -39,6 +41,7 @@
         "libvirtd"       # Required for managing libvirt/QEMU/KVM virtual machines
         "kvm"            # Provides access to hardware virtualization features
         "lp"             # Gives permission to manage printers (needed for printing)
+        "scanner"        # Gives permission to manage scanners (needed for scanning)
       ];
       shell = pkgs.fish;
     };
